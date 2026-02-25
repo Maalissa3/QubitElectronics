@@ -1,0 +1,14 @@
+\contentsline {section}{\numberline {1}Introduction to Qubits}{2}{}%
+\contentsline {subsection}{\numberline {1.1}Computers and Computation}{2}{}%
+\contentsline {subsection}{\numberline {1.2}Data Representation: Classical vs. Quantum}{2}{}%
+\contentsline {subsection}{\numberline {1.3}DiVincenzo Criteria for Quantum Computing}{3}{}%
+\contentsline {subsection}{\numberline {1.4}Qubit Figure of Merits}{3}{}%
+\contentsline {subsection}{\numberline {1.5}Bits vs. Qubits}{4}{}%
+\contentsline {paragraph}{CNOT Gate (Controlled-NOT):}{5}{}%
+\contentsline {subsection}{\numberline {1.6}Qubit States}{5}{}%
+\contentsline {subsection}{\numberline {1.7}Single-Qubit Gates}{7}{}%
+\contentsline {paragraph}{Pauli-X (NOT gate):}{7}{}%
+\contentsline {paragraph}{Pauli-Z gate:}{7}{}%
+\contentsline {paragraph}{Pauli-Y gate:}{7}{}%
+\contentsline {subsection}{\numberline {1.8}Multiple Gate Applications}{8}{}%
+\contentsline {subsection}{\numberline {1.9}Density Matrix Formalism}{8}{}%

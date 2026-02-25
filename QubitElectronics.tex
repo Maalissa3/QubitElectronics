@@ -1,9 +1,9 @@
-\documentclass[11pt]{article}
-\usepackage[utf-8]{inputenc}
+\documentclass{article}
+\usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
-\usepackage{hyperref}
+\usepackage{geometry}
 \usepackage{circuitikz}
 
 \title{Qubit Introduction}
@@ -13,11 +13,13 @@
 \begin{document}
 
 \maketitle
+\tableofcontents
+\newpage
 
-\section{Lecture 1- Introduction to Qubits}
+\section{Introduction to Qubits}
 \subsection{Computers and Computation}
 
-\subsubsection{Models of Classical Computation}
+\subsubsection*{Models of Classical Computation}
 Classical computation can be implemented through various physical models:
 \begin{itemize}
     \item \textbf{Mechanical}: Curta calculator, Digi-comp I, Babbage's difference engine
@@ -26,7 +28,7 @@ Classical computation can be implemented through various physical models:
     \item \textbf{Biological}: DNA and molecular computing
 \end{itemize}
 
-\subsubsection{Conceptual Models}
+\subsubsection*{Conceptual Models}
 Key theoretical frameworks for computation include:
 \begin{itemize}
     \item Turing Machine (mathematical model of computation)
@@ -35,23 +37,35 @@ Key theoretical frameworks for computation include:
     \item Logic-in-Memory computing paradigm
 \end{itemize}
 
-\subsection{Quantum Computing History}
+\subsubsection*{Quantum Computing Development}
 
-In the early 1980s, Richard Feynman proposed that simulating quantum systems requires quantum computers. Two major milestones occurred in the mid-1990s:
+In the early 1980s, Richard Feynman proposed that simulating quantum systems requires quantum computers. This led to the fundamental question: what algorithms could provide a quantum advantage for real-world problems?
+
+Two major milestones occurred in the mid-1990s:
 \begin{enumerate}
-    \item Discovery of Shor's algorithm for factoring
-    \item Development of quantum error-correcting codes
+    \item Discovery of Shor's algorithm for factoring (addressing an important practical problem)
+    \item Development of quantum error-correcting codes by Shor and colleagues
 \end{enumerate}
 
-Today, quantum computers with over 100 qubits are operational, with IBM's Condor exceeding 1000 qubits.
+Since then, research has focused on both the underlying physics and hardware development for quantum computers. Today, operating quantum computers with more than 100 qubits exist, with IBM's Condor exceeding 1000 qubits.
 
 \subsection{Data Representation: Classical vs. Quantum}
 
 Classical computers use bits (0 or 1), while quantum computers use quantum bits (qubits) that can exist in superposition: $|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$ where $|\alpha|^2 + |\beta|^2 = 1$.
 
-\subsection{DiVincenzo Criteria for Quantum Computing}
+\subsubsection*{Quantum Parallelism}
 
-A viable qubit must satisfy:
+Unlike classical bits, quantum systems exhibit superposition, allowing exponential encoding of information. While $N$ classical bits represent a single $N$-bit state, $N$ qubits exist in a superposition of all $2^N$ possible states simultaneously.
+
+For example, with $N=3$ qubits:
+$$|\psi\rangle = \sum_{i=0}^{7} c_i|i\rangle$$
+
+where each $c_i$ is a complex amplitude and $\sum_{i=0}^{7}|c_i|^2 = 1$.
+
+This quantum parallelism enables quantum algorithms to process all $2^N$ computational paths concurrently, providing potential exponential speedup over classical approaches. However, measurement collapses this superposition to a single state, requiring careful algorithm design to extract useful information.
+
+\subsection{DiVincenzo Criteria for Quantum Computing}
+A viable qubit must satisfy the DiVincenzo Criteria:
 \begin{enumerate}
     \item Scalability of the physical system
     \item Ability to initialize qubit states
@@ -64,40 +78,135 @@ A viable qubit must satisfy:
 
 \subsection{Qubit Figure of Merits}
 
-\subsubsection{Coherence Time}
-Qubits lose information through:
+\subsubsection*{Qubit Robustness and Coherence Time}
+Qubits lose information through interaction with the environment via:
 \begin{itemize}
-    \item Energy relaxation ($T_1$)
-    \item Dephasing ($T_\phi$)
+    \item Energy relaxation ($T_1$): loss of energy to the environment
+    \item Dephasing ($T_\phi$): loss of phase coherence
 \end{itemize}
 
-The effective coherence time is $\frac{1}{T_2} = \frac{1}{T_\phi} + \frac{1}{2T_1}$.
+The effective coherence time is $\frac{1}{T_2} = \frac{1}{T_\phi} + \frac{1}{2T_1}$, representing the average time a qubit remains coherent.
 
-\subsubsection{Gate Speed and Fidelity}
-The number of gates within qubit lifetime determines quantum advantage: $N_{\text{gates}} \sim t_{\text{gate}}/T_2$.
+\subsubsection*{Gate Speed and Figure of Merit}
+The number of gates performable within qubit lifetime determines quantum advantage: $N_{\text{gates}} \sim t_{\text{gate}}/T_2$.
 
-Gate fidelity measures how accurately quantum operations are performed, crucial for reliable quantum computation.
+\subsubsection*{Gate Fidelity}
+Gate fidelity quantifies how accurately quantum gate operations are performed, measuring the closeness between ideal and actual operations under imperfections and noise. High-fidelity operations are crucial for reliable quantum computation and can be determined through Process Tomography or Randomized Benchmarking.
 
-\subsection{Single Qubit States}
+\subsection{Bits vs. Qubits}
+\subsubsection*{Classical vs. Quantum Gates}
 
-A general single-qubit state is represented as:
-$$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle = \begin{pmatrix} \alpha \\ \beta \end{pmatrix}$$
+Classical computers use Boolean logic gates (such as NOT and AND) to form a universal set of operations. Quantum computers similarly use quantum gates, but with fundamentally different properties:
 
-where $|\alpha|^2 + |\beta|^2 = 1$ (normalization condition).
-
-The Hermitian conjugate is $\langle\psi| = (\alpha^* \quad \beta^*)$.
-
-\subsection{Measurement of Qubits}
-
-Measurement is an active process that:
 \begin{itemize}
-    \item Collapses the state to a basis state
-    \item Extracts limited information
-    \item Depends on the chosen measurement basis
-    \item Returns classical outcomes
+    \item Classical gates: irreversible, map multiple inputs to outputs
+    \item Quantum gates: unitary and reversible, preserve quantum information
+    \item Single quantum gates (e.g., X-gate) can manipulate qubit states
+    \item Universal quantum computation requires a combination of single and two-qubit gates
 \end{itemize}
 
-\subsubsection{The Born Rule}
+The X-gate example shows practical application: applying an X-gate to a qubit in state $|0\rangle$ transitions it to $|1\rangle$, achieved experimentally through a $\pi$-pulse envelope.
+
+\subsubsection*{Circuits in Space vs. Circuits in Time}
+
+Classical logic operates as \textbf{circuits in space}:
+\begin{itemize}
+    \item Example: NOT gate maps $0 \to 1$ and $1 \to 0$
+    \item Horizontal axis represents space
+    \item Input and output exist at different physical locations
+    \item Measurements can be performed simultaneously on different wires
+\end{itemize}
+
+In contrast, quantum logic operates as \textbf{circuits in time}:
+\begin{itemize}
+    \item Example: X gate (quantum NOT) acts on qubit states $|0\rangle$ and $|1\rangle$
+    \item Horizontal axis represents time
+    \item Input and output correspond to the same qubit before and after the operation
+    \item State is sequentially updated through time evolution
+\end{itemize}
+
+\textbf{Key distinction:}
+\begin{itemize}
+    \item Classical gates connect wires in space, allowing parallel independent operations
+    \item Quantum gates are unitary operations that evolve the state of qubits in time
+    \item Each gate application modifies and overwrites the qubit's state
+\end{itemize}
+\subsubsection*{Two-Qubit Gates}
+
+Two-qubit gates enable quantum entanglement and are essential for universal quantum computation.
+
+\paragraph{CNOT Gate (Controlled-NOT):}
+
+The CNOT gate operates on two qubits: a control qubit and a target qubit. It applies an X gate to the target if the control qubit is $|1\rangle$.
+
+$$\text{CNOT} = \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{pmatrix}$$
+
+Truth table:
+
+\begin{center}
+\begin{tabular}{cc|cc}
+\hline
+Control & Target & Control & Target \\
+\hline
+$|0\rangle$ & $|0\rangle$ & $|0\rangle$ & $|0\rangle$ \\
+$|0\rangle$ & $|1\rangle$ & $|0\rangle$ & $|1\rangle$ \\
+$|1\rangle$ & $|0\rangle$ & $|1\rangle$ & $|1\rangle$ \\
+$|1\rangle$ & $|1\rangle$ & $|1\rangle$ & $|0\rangle$ \\
+\hline
+\end{tabular}
+\end{center}
+
+For a control qubit in superposition $|\psi\rangle_A = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$ and target in state $|0\rangle_B$:
+
+$$|\psi\rangle_{\text{out}} = \text{CNOT}(|\psi\rangle_A \otimes |0\rangle_B) = \frac{1}{\sqrt{2}}(|0\rangle_A|0\rangle_B + |1\rangle_A|1\rangle_B)$$
+
+This creates an entangled Bell state, where the qubits are correlated regardless of measurement basis.
+
+\subsection{Qubit States}
+
+\subsubsection*{General Qubit State}
+
+Quantum mechanics tells us that any qubit system can exist in a superposition of states. The general state of a quantum bit is described by:
+$$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$$
+
+where $\alpha$ and $\beta$ are complex numbers, and the normalization constraint $\langle\psi|\psi\rangle = 1$ requires that:
+$$|\alpha|^2 + |\beta|^2 = 1$$
+
+The states $|0\rangle$ and $|1\rangle$ represent the computational basis as two-dimensional vectors:
+$$|0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \quad |1\rangle = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$$
+
+A general superposition state can be expressed as a weighted sum of basis states:
+$$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle = \alpha\begin{pmatrix} 1 \\ 0 \end{pmatrix} + \beta\begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} \alpha \\ \beta \end{pmatrix}$$
+
+\subsubsection*{Bra-Ket Notation and Inner Products}
+
+The transpose complex conjugate of a ket $|\psi\rangle$ is denoted as a bra:
+$$|\psi\rangle^\dagger = \langle\psi| = \begin{pmatrix} \alpha^* & \beta^* \end{pmatrix}$$
+
+where the $\dagger$ superscript indicates the Hermitian conjugate (transpose complex conjugate).
+
+The inner product forms the bra-ket:
+$$\langle\psi|\psi\rangle = |\alpha|^2 + |\beta|^2 = 1$$
+
+This represents the normalization condition ensuring the total probability is conserved.
+
+\subsubsection*{Measurement of Qubits}
+
+When a qubit in superposition $|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$ is measured in the computational basis:
+
+\begin{itemize}
+    \item The measurement is an active process where the apparatus interacts with the qubit
+    \item The qubit state collapses to either $|0\rangle$ or $|1\rangle$
+    \item The probability of measuring $|0\rangle$ is $P(0) = |\alpha|^2$
+    \item The probability of measuring $|1\rangle$ is $P(1) = |\beta|^2$
+    \item After measurement, the qubit is no longer in superposition
+    \item Only partial information is extracted—you cannot access the full quantum state
+    \item Information obtained depends on the chosen measurement basis
+\end{itemize}
+
+This measurement in the computational basis $\{|0\rangle, |1\rangle\}$ is called \textbf{Z-measurement}. Other measurement bases exist (X-basis, Y-basis), but the computational basis is most common in quantum computing systems.
+
+\subsubsection*{The Born Rule}
 The probability of measuring state $|a\rangle$ from $|\psi\rangle$ is:
 $$P(a) = |\langle a|\psi\rangle|^2$$
 
@@ -108,7 +217,7 @@ Common measurement bases include:
     \item Y-basis: $\{|+i\rangle, |-i\rangle\}$ where $|+i\rangle = \frac{1}{\sqrt{2}}(|0\rangle + i|1\rangle)$
 \end{itemize}
 
-\subsection{Bloch Sphere Representation}
+\subsubsection*{TODO:Bloch Sphere Representation}
 
 Any single-qubit pure state can be represented on the Bloch sphere:
 $$|\psi\rangle = \cos\frac{\theta}{2}|0\rangle + e^{i\phi}\sin\frac{\theta}{2}|1\rangle$$
@@ -123,7 +232,7 @@ Key states: $|0\rangle \to (0,0,1)$, $|1\rangle \to (0,0,-1)$, $|+\rangle \to (1
 
 Single-qubit gates are unitary transformations that evolve qubit states. A unitary matrix $U$ satisfies $U^\dagger U = UU^\dagger = I$.
 
-\subsubsection{Pauli Gates}
+\subsubsection*{Pauli Gates}
 
 \paragraph{Pauli-X (NOT gate):}
 $$\sigma_x = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad \sigma_x|0\rangle = |1\rangle, \quad \sigma_x|1\rangle = |0\rangle$$
@@ -140,26 +249,26 @@ $$\sigma_y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} = -i\sigma_x\sigma_z$
 
 Represents a $\pi$ rotation around the y-axis. All Pauli matrices satisfy $\sigma_i^2 = I$ and are Hermitian.
 
-\subsubsection{Commutation Relations}
+\subsubsection*{Commutation Relations}
 
 $$[\sigma_x, \sigma_y] = 2i\sigma_z, \quad [\sigma_y, \sigma_z] = 2i\sigma_x, \quad [\sigma_z, \sigma_x] = 2i\sigma_y$$
 
-\subsubsection{Anticommutation Relations}
+\subsubsection*{Anticommutation Relations}
 
 $$\{\sigma_x, \sigma_y\} = 0, \quad \{\sigma_y, \sigma_z\} = 0, \quad \{\sigma_z, \sigma_x\} = 0$$
 
-\subsubsection{Rotation Gates}
+\subsubsection*{Rotation Gates}
 
 General rotation around axis $n$ by angle $\theta$:
 $$R_n(\theta) = e^{-i\theta\sigma_n/2} = \cos\frac{\theta}{2}I - i\sin\frac{\theta}{2}\sigma_n$$
 
-\subsubsection{Hadamard Gate}
+\subsubsection*{Hadamard Gate}
 
 $$H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$$
 
 Creates superposition: $H|0\rangle = |+\rangle$, $H|1\rangle = |-\rangle$.
 
-\subsubsection{Phase Gate (S-gate)}
+\subsubsection*{Phase Gate (S-gate)}
 
 $$S = \begin{pmatrix} 1 & 0 \\ 0 & i \end{pmatrix}$$
 
@@ -173,15 +282,15 @@ Sequential gate applications are computed via matrix multiplication (right to le
 
 Real quantum systems cannot be perfectly isolated and are described by the density matrix $\hat{\rho}$:
 
-\subsubsection{Pure States}
+\subsubsection*{Pure States}
 $$\hat{\rho} = |\psi\rangle\langle\psi|$$
 
-\subsubsection{Mixed States (Ensemble)}
+\subsubsection*{Mixed States (Ensemble)}
 $$\hat{\rho} = \sum_i p_i |\psi_i\rangle\langle\psi_i|$$
 
 where $\sum_i p_i = 1$.
 
-\subsubsection{Properties}
+\subsubsection*{Properties}
 \begin{itemize}
     \item Hermitian: $\hat{\rho} = \hat{\rho}^\dagger$
     \item Trace normalized: $\text{tr}(\hat{\rho}) = 1$
