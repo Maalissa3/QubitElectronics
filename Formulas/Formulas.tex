@@ -1,0 +1,149 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Formula Sheet - Qubit Electronics}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\section{Fundamental Qubit Representation and State Vectors}
+
+A single qubit exists in a state $|\psi\rangle$, representing a superposition of basis states $|0\rangle$ and $|1\rangle$.
+
+\subsection{General Superposition Formula}
+\[
+|\psi\rangle = \alpha|0\rangle + \beta|1\rangle = \begin{bmatrix} \alpha \\ \beta \end{bmatrix}
+\]
+where $\alpha$ and $\beta$ are complex probability amplitudes.
+
+\subsection{Normalization Condition}
+\[
+|\alpha|^2 + |\beta|^2 = 1
+\]
+
+\subsection{Hermitian Conjugate}
+\[
+|\psi\rangle^\dagger = \langle\psi| = [\alpha^*, \beta^*]
+\]
+
+\subsection{Multi-Qubit System Scaling}
+A system of $N$ qubits scales to $2^N$ components. For $N=3$:
+\[
+|\psi\rangle = c_1|000\rangle + c_2|001\rangle + \cdots + c_8|111\rangle
+\]
+
+\section{The Bloch Sphere Geometry}
+
+\subsection{General State Formula}
+\[
+|\psi\rangle = \cos\left(\frac{\theta}{2}\right)|0\rangle + e^{i\phi}\sin\left(\frac{\theta}{2}\right)|1\rangle
+\]
+
+\subsection{Bloch Vector Coordinates}
+\begin{itemize}
+    \item $|0\rangle$ (North Pole): $(0, 0, 1)$
+    \item $|1\rangle$ (South Pole): $(0, 0, -1)$
+    \item $|+\rangle$: $(1, 0, 0)$
+    \item $|-\rangle$: $(-1, 0, 0)$
+\end{itemize}
+
+\section{Quantum Measurement and the Born Rule}
+
+\subsection{State Collapse}
+Measurement forces $|\psi\rangle$ to collapse into either $|0\rangle$ or $|1\rangle$.
+
+\subsection{Probability}
+\[
+P(0) = |\alpha|^2, \quad P(1) = |\beta|^2
+\]
+
+\section{Single-Qubit Unitary Operators}
+
+\subsection{X-Gate (NOT)}
+\[
+X = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}
+\]
+
+\subsection{Y-Gate}
+\[
+Y = \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}
+\]
+
+\subsection{Z-Gate}
+\[
+Z = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}
+\]
+
+\subsection{Hadamard Gate}
+\[
+H = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}
+\]
+
+\subsection{Phase Gate}
+\[
+S = \begin{bmatrix} 1 & 0 \\ 0 & i \end{bmatrix}
+\]
+
+\subsection{T-Gate}
+\[
+T = \begin{bmatrix} 1 & 0 \\ 0 & e^{i\pi/4} \end{bmatrix}
+\]
+
+\section{Rotation Gates}
+
+\[
+R_x(\theta) = e^{-i\theta X/2}, \quad R_y(\theta) = e^{-i\theta Y/2}, \quad R_z(\theta) = e^{-i\theta Z/2}
+\]
+
+\section{Two-Qubit Interactions: CNOT Gate}
+
+\subsection{Mapping Rule}
+\[
+|A\rangle|B\rangle \to |A\rangle|A \oplus B\rangle
+\]
+
+\subsection{Matrix Representation}
+\[
+\text{CNOT} = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{bmatrix}
+\]
+
+\section{Density Matrix Formalism}
+
+\subsection{Definition}
+\[
+\rho = |\psi\rangle\langle\psi|
+\]
+
+\subsection{Trace Property}
+\[
+\text{Tr}(\rho) = 1
+\]
+
+\subsection{State Purity}
+\begin{itemize}
+    \item Pure State: $\text{Tr}(\rho^2) = 1$
+    \item Mixed State: $\text{Tr}(\rho^2) < 1$
+\end{itemize}
+
+\section{Qubit Performance Metrics}
+
+\subsection{Coherence Time}
+\[
+\frac{1}{T_2} = \frac{1}{T_\phi} + \frac{1}{2T_1}
+\]
+
+\subsection{Gate Capacity}
+\[
+N_{\text{gates}} \sim \frac{t_{\text{gate}}}{T_2}
+\]
+
+\subsection{DiVincenzo Criteria}
+The seven requirements for a scalable quantum system include: scalable physical qubits, initialization capability, long coherence times, universal gates, qubit-specific measurement, qubit conversion, and faithful transmission.
+
+\end{document}

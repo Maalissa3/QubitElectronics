@@ -1,0 +1,195 @@
+\documentclass[11pt]{article}
+\usepackage[utf-8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{circuitikz}
+
+\title{Qubit Introduction}
+\author{Martina Paola Calvi}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Lecture 1- Introduction to Qubits}
+\subsection{Computers and Computation}
+
+\subsubsection{Models of Classical Computation}
+Classical computation can be implemented through various physical models:
+\begin{itemize}
+    \item \textbf{Mechanical}: Curta calculator, Digi-comp I, Babbage's difference engine
+    \item \textbf{Electrical}: Electronic circuits and transistor-based systems
+    \item \textbf{Optical}: Photonic computing systems
+    \item \textbf{Biological}: DNA and molecular computing
+\end{itemize}
+
+\subsubsection{Conceptual Models}
+Key theoretical frameworks for computation include:
+\begin{itemize}
+    \item Turing Machine (mathematical model of computation)
+    \item Cellular Automata
+    \item Von Neumann architecture (CPU, Memory, Bus, I/O)
+    \item Logic-in-Memory computing paradigm
+\end{itemize}
+
+\subsection{Quantum Computing History}
+
+In the early 1980s, Richard Feynman proposed that simulating quantum systems requires quantum computers. Two major milestones occurred in the mid-1990s:
+\begin{enumerate}
+    \item Discovery of Shor's algorithm for factoring
+    \item Development of quantum error-correcting codes
+\end{enumerate}
+
+Today, quantum computers with over 100 qubits are operational, with IBM's Condor exceeding 1000 qubits.
+
+\subsection{Data Representation: Classical vs. Quantum}
+
+Classical computers use bits (0 or 1), while quantum computers use quantum bits (qubits) that can exist in superposition: $|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$ where $|\alpha|^2 + |\beta|^2 = 1$.
+
+\subsection{DiVincenzo Criteria for Quantum Computing}
+
+A viable qubit must satisfy:
+\begin{enumerate}
+    \item Scalability of the physical system
+    \item Ability to initialize qubit states
+    \item Long coherence times ($T_1$, $T_2$, $T_\phi$)
+    \item Universal quantum gate operations
+    \item High-fidelity quantum operations
+    \item Interconversion between stationary and flying qubits
+    \item Faithful transmission of flying qubits
+\end{enumerate}
+
+\subsection{Qubit Figure of Merits}
+
+\subsubsection{Coherence Time}
+Qubits lose information through:
+\begin{itemize}
+    \item Energy relaxation ($T_1$)
+    \item Dephasing ($T_\phi$)
+\end{itemize}
+
+The effective coherence time is $\frac{1}{T_2} = \frac{1}{T_\phi} + \frac{1}{2T_1}$.
+
+\subsubsection{Gate Speed and Fidelity}
+The number of gates within qubit lifetime determines quantum advantage: $N_{\text{gates}} \sim t_{\text{gate}}/T_2$.
+
+Gate fidelity measures how accurately quantum operations are performed, crucial for reliable quantum computation.
+
+\subsection{Single Qubit States}
+
+A general single-qubit state is represented as:
+$$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle = \begin{pmatrix} \alpha \\ \beta \end{pmatrix}$$
+
+where $|\alpha|^2 + |\beta|^2 = 1$ (normalization condition).
+
+The Hermitian conjugate is $\langle\psi| = (\alpha^* \quad \beta^*)$.
+
+\subsection{Measurement of Qubits}
+
+Measurement is an active process that:
+\begin{itemize}
+    \item Collapses the state to a basis state
+    \item Extracts limited information
+    \item Depends on the chosen measurement basis
+    \item Returns classical outcomes
+\end{itemize}
+
+\subsubsection{The Born Rule}
+The probability of measuring state $|a\rangle$ from $|\psi\rangle$ is:
+$$P(a) = |\langle a|\psi\rangle|^2$$
+
+Common measurement bases include:
+\begin{itemize}
+    \item Computational (Z-basis): $\{|0\rangle, |1\rangle\}$
+    \item X-basis: $\{|+\rangle, |-\rangle\}$ where $|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$
+    \item Y-basis: $\{|+i\rangle, |-i\rangle\}$ where $|+i\rangle = \frac{1}{\sqrt{2}}(|0\rangle + i|1\rangle)$
+\end{itemize}
+
+\subsection{Bloch Sphere Representation}
+
+Any single-qubit pure state can be represented on the Bloch sphere:
+$$|\psi\rangle = \cos\frac{\theta}{2}|0\rangle + e^{i\phi}\sin\frac{\theta}{2}|1\rangle$$
+
+where $\theta \in [0, \pi]$ and $\phi \in [0, 2\pi]$.
+
+The Bloch vector is $\vec{r} = (\sin\theta\cos\phi, \sin\theta\sin\phi, \cos\theta)$.
+
+Key states: $|0\rangle \to (0,0,1)$, $|1\rangle \to (0,0,-1)$, $|+\rangle \to (1,0,0)$, $|-\rangle \to (-1,0,0)$.
+
+\subsection{Single-Qubit Gates}
+
+Single-qubit gates are unitary transformations that evolve qubit states. A unitary matrix $U$ satisfies $U^\dagger U = UU^\dagger = I$.
+
+\subsubsection{Pauli Gates}
+
+\paragraph{Pauli-X (NOT gate):}
+$$\sigma_x = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad \sigma_x|0\rangle = |1\rangle, \quad \sigma_x|1\rangle = |0\rangle$$
+
+Represents a $\pi$ rotation around the x-axis.
+
+\paragraph{Pauli-Z gate:}
+$$\sigma_z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}, \quad \sigma_z|0\rangle = |0\rangle, \quad \sigma_z|1\rangle = -|1\rangle$$
+
+Represents a $\pi$ rotation around the z-axis.
+
+\paragraph{Pauli-Y gate:}
+$$\sigma_y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} = -i\sigma_x\sigma_z$$
+
+Represents a $\pi$ rotation around the y-axis. All Pauli matrices satisfy $\sigma_i^2 = I$ and are Hermitian.
+
+\subsubsection{Commutation Relations}
+
+$$[\sigma_x, \sigma_y] = 2i\sigma_z, \quad [\sigma_y, \sigma_z] = 2i\sigma_x, \quad [\sigma_z, \sigma_x] = 2i\sigma_y$$
+
+\subsubsection{Anticommutation Relations}
+
+$$\{\sigma_x, \sigma_y\} = 0, \quad \{\sigma_y, \sigma_z\} = 0, \quad \{\sigma_z, \sigma_x\} = 0$$
+
+\subsubsection{Rotation Gates}
+
+General rotation around axis $n$ by angle $\theta$:
+$$R_n(\theta) = e^{-i\theta\sigma_n/2} = \cos\frac{\theta}{2}I - i\sin\frac{\theta}{2}\sigma_n$$
+
+\subsubsection{Hadamard Gate}
+
+$$H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$$
+
+Creates superposition: $H|0\rangle = |+\rangle$, $H|1\rangle = |-\rangle$.
+
+\subsubsection{Phase Gate (S-gate)}
+
+$$S = \begin{pmatrix} 1 & 0 \\ 0 & i \end{pmatrix}$$
+
+Adds a $90°$ phase shift: $S|+\rangle = |+i\rangle$, $S|-\rangle = |-i\rangle$.
+
+\subsection{Multiple Gate Applications}
+
+Sequential gate applications are computed via matrix multiplication (right to left in mathematical notation, left to right in circuits).
+
+\subsection{Density Matrix Formalism}
+
+Real quantum systems cannot be perfectly isolated and are described by the density matrix $\hat{\rho}$:
+
+\subsubsection{Pure States}
+$$\hat{\rho} = |\psi\rangle\langle\psi|$$
+
+\subsubsection{Mixed States (Ensemble)}
+$$\hat{\rho} = \sum_i p_i |\psi_i\rangle\langle\psi_i|$$
+
+where $\sum_i p_i = 1$.
+
+\subsubsection{Properties}
+\begin{itemize}
+    \item Hermitian: $\hat{\rho} = \hat{\rho}^\dagger$
+    \item Trace normalized: $\text{tr}(\hat{\rho}) = 1$
+    \item 2×2 matrix form: $\hat{\rho} = \begin{pmatrix} \rho_{11} & \rho_{12} \\ \rho_{21} & \rho_{22} \end{pmatrix}$
+    \item Diagonal elements represent probabilities
+    \item Off-diagonal elements represent coherences (with $\rho_{12} = \rho_{21}^*$)
+\end{itemize}
+
+Pure vs. mixed states can be distinguished by $\text{tr}(\hat{\rho}^2) = 1$ (pure) or $\text{tr}(\hat{\rho}^2) < 1$ (mixed).
+
+\end{document}
