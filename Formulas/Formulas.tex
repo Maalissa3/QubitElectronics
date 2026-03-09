@@ -71,4 +71,79 @@
     \item \textbf{Gate Capacity:} $N_{\text{gates}} \sim \frac{T_2}{t_{\text{gate}}}$
 \end{itemize}
 
+
+\newpage
+\section{Superconducting Qubits}
+
+\subsection*{Fundamental Superconductivity and Cooper Pairs}
+\begin{itemize}
+    \item \textbf{Collective Wave Function:} $\psi = \psi_0 \exp\left[-\mathrm{j}\frac{1}{\hbar}(Et - \mathbf{p} \cdot \mathbf{x})\right]$ where $\mathrm{j} = \sqrt{-1}$
+    \item \textbf{Cooper Pair Density:} $\rho = \psi \cdot \psi^* = |\psi_0|^2$
+    \item \textbf{Meissner Effect:} $B = 0$
+\end{itemize}
+
+\subsection*{Josephson Junction Dynamics}
+\begin{itemize}
+    \item \textbf{Phase Difference:} $\phi = \varphi_2 - \varphi_1$
+    \item \textbf{Current-Phase Relation:} $I = I_C \sin \phi$
+    \item \textbf{Voltage-Phase Relation:} $V = \frac{\Phi_0}{2\pi}\dot{\phi}$ where $\Phi_0 = \frac{h}{2e} = \frac{2\pi\hbar}{2e}$
+    \item \textbf{Josephson Inductance:} $L = \frac{\Phi_0}{2\pi I_C \cos \phi}$ and $L_j = \frac{\Phi_0}{2\pi I_C}$
+    \item \textbf{Josephson Energy:} $E_j(1 - \cos \phi)$
+\end{itemize}
+
+\subsection*{LC Circuit Quantization}
+\begin{itemize}
+    \item \textbf{Hamiltonian:} $H = \frac{Q^2}{2C} + \frac{\Phi^2}{2L}$
+    \item \textbf{Resonant Frequency:} $\omega_{01} = \frac{1}{\sqrt{LC}}$
+    \item \textbf{Canonical Commutation:} $[\hat{\Phi}, \hat{Q}] = \mathrm{i}\hbar$ and $[\hat{a}, \hat{a}^\dagger] = 1$
+\end{itemize}
+
+\subsection*{Transmon Qubit Parameters}
+\begin{itemize}
+    \item \textbf{Non-linear Inductance:} $L(\Phi) = \frac{\Phi_0}{2\pi I_C \cos(2\pi\Phi/\Phi_0)}$
+    \item \textbf{Transition Energy:} $E_{01} = \hbar\omega_{01} \approx 10 \text{ GHz}$
+    \item \textbf{Anharmonicity:} $E_{01} \neq E_{12}$ allows selective qubit control
+    \item \textbf{Operating Temperature:} $\approx 10 \text{ mK}$, requiring $k_B T \ll \hbar\omega_{01}$
+    \item \textbf{Gate Time:} $T_\pi \approx 4$--$20 \text{ ns}$
+    \item \textbf{Coherence Times:} $T_1, T_2 \sim 100$--$1000 \text{ } \mu\text{s}$
+\end{itemize}
+
+\newpage
+\section{Circuit QED}
+\subsection*{Fundamental Light-Matter Interaction}
+\begin{itemize}
+    \item \textbf{Dipole Coupling:} $H = -\vec{d} \cdot \vec{E}(t)$ where $\vec{d}$ is the electric dipole moment
+    \item \textbf{Rabi Frequency:} $\Omega_R = \frac{d E_0}{\hbar}$ for classical field amplitude $E_0$
+\end{itemize}
+
+\subsection*{Resonator Physics}
+\begin{itemize}
+    \item \textbf{Fabry-Pérot Resonance:} $2L = m\lambda_m$ where $m$ is the mode number
+    \item \textbf{Mode Separation:} $\Delta f = \frac{c}{2L}$
+    \item \textbf{LC Resonator Frequency:} $\omega_r = \frac{1}{\sqrt{L_r C_r}}$
+    \item \textbf{Quality Factor:} $Q = \frac{\omega_r}{\kappa}$ where $\kappa$ is the decay rate
+\end{itemize}
+
+\subsection*{Jaynes-Cummings Model}
+\begin{itemize}
+    \item \textbf{Full Hamiltonian:} $H = \hbar\omega_r\hat{a}^\dagger\hat{a} + \frac{\hbar\omega_{01}}{2}\hat{\sigma}_z + \hbar g(\hat{a}\hat{\sigma}_+ + \hat{a}^\dagger\hat{\sigma}_-)$
+    \item \textbf{Rotating Wave Approximation (RWA):} Neglects rapidly oscillating terms at frequency $\omega_r + \omega_{01}$
+    \item \textbf{Jaynes-Cummings (RWA):} $H_{JC} = \hbar\omega_r\hat{a}^\dagger\hat{a} + \frac{\hbar\omega_{01}}{2}\hat{\sigma}_z + \hbar g(\hat{a}\hat{\sigma}_+ + \hat{a}^\dagger\hat{\sigma}_-)$
+\end{itemize}
+
+\subsection*{Coupling and Zero-Point Fluctuations}
+\begin{itemize}
+    \item \textbf{Coupling Strength:} $g = \frac{\omega_r}{2}\sqrt{\frac{\hbar}{2L_r C_r}}\frac{d}{\hbar}$ (typically $2\pi \times 100$ MHz)
+    \item \textbf{Zero-Point Voltage:} $V_{zpf} = \sqrt{\frac{\hbar\omega_r}{2C_r}} \approx 1 \, \mu\mathrm{V}$
+    \item \textbf{Vacuum Rabi Frequency:} $\Omega = 2g$
+\end{itemize}
+
+\subsection*{Dispersive Regime}
+\begin{itemize}
+    \item \textbf{Detuning:} $\Delta = \omega_{01} - \omega_r$; dispersive regime when $|\Delta| \gg g$
+    \item \textbf{Dispersive Shift (AC Stark Shift):} $\chi = \frac{g^2}{\Delta}$
+    \item \textbf{Qubit-State-Dependent Resonator Frequency:} $\omega_r^{(e)} = \omega_r + \chi$ (excited state); $\omega_r^{(g)} = \omega_r - \chi$ (ground state)
+    \item \textbf{Readout via Dispersive Shift:} Phase accumulation $\propto \chi \hat{\sigma}_z t$ enables qubit-state discrimination
+\end{itemize}
+
 \end{document}
