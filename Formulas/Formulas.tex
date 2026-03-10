@@ -5,7 +5,7 @@
 \usepackage{geometry}
 \geometry{margin=1in}
 
-\title{Formula Sheet - Qubit Electronics}
+\title{Qubit Electronics-Formula Sheet}
 \author{Martina Paola Calvi}
 \date{}
 
@@ -131,19 +131,79 @@
     \item \textbf{Jaynes-Cummings (RWA):} $H_{JC} = \hbar\omega_r\hat{a}^\dagger\hat{a} + \frac{\hbar\omega_{01}}{2}\hat{\sigma}_z + \hbar g(\hat{a}\hat{\sigma}_+ + \hat{a}^\dagger\hat{\sigma}_-)$
 \end{itemize}
 
-\subsection*{Coupling and Zero-Point Fluctuations}
+\subsection*{Coupling Strength}
 \begin{itemize}
-    \item \textbf{Coupling Strength:} $g = \frac{\omega_r}{2}\sqrt{\frac{\hbar}{2L_r C_r}}\frac{d}{\hbar}$ (typically $2\pi \times 100$ MHz)
-    \item \textbf{Zero-Point Voltage:} $V_{zpf} = \sqrt{\frac{\hbar\omega_r}{2C_r}} \approx 1 \, \mu\mathrm{V}$
-    \item \textbf{Vacuum Rabi Frequency:} $\Omega = 2g$
+    \item \textbf{Coupling Formula:} $g = \omega_r \frac{C_g}{C} \left(\frac{E_j}{2E_c}\right)^{1/4} \sqrt{\frac{\pi Z_r}{R_k}}$ where $C_g$ is gate capacitance, $Z_r$ is resonator impedance, and $R_k = \frac{h}{e^2} \approx 25.8 \text{ k}\Omega$
+    \item \textbf{Typical Range:} $g/2\pi \approx 100$ MHz to $1$ GHz (strong coupling regime)
 \end{itemize}
 
 \subsection*{Dispersive Regime}
 \begin{itemize}
-    \item \textbf{Detuning:} $\Delta = \omega_{01} - \omega_r$; dispersive regime when $|\Delta| \gg g$
+    \item \textbf{Condition:} $|\Delta| = |\omega_{01} - \omega_r| \gg g$
     \item \textbf{Dispersive Shift (AC Stark Shift):} $\chi = \frac{g^2}{\Delta}$
-    \item \textbf{Qubit-State-Dependent Resonator Frequency:} $\omega_r^{(e)} = \omega_r + \chi$ (excited state); $\omega_r^{(g)} = \omega_r - \chi$ (ground state)
-    \item \textbf{Readout via Dispersive Shift:} Phase accumulation $\propto \chi \hat{\sigma}_z t$ enables qubit-state discrimination
+    \item \textbf{Effective Hamiltonian:} $H \approx (\omega_r + \chi \hat{\sigma}_z) \hat{a}^\dagger \hat{a} + \frac{\omega_{01}}{2} \hat{\sigma}_z$
+    \item \textbf{State-Dependent Resonator Frequency:} $\omega_r^{(0)} = \omega_r - \chi$ (ground state $|0\rangle$); $\omega_r^{(1)} = \omega_r + \chi$ (excited state $|1\rangle$)
+    \item \textbf{Readout via Dispersive Shift:} Phase accumulation $\propto \chi \hat{\sigma}_z t$ enables qubit-state discrimination without excitation
+\end{itemize}
+
+\subsection*{Circuit QED Implementation}
+\begin{itemize}
+    \item \textbf{Cavity Analogue:} Superconducting coplanar waveguide (CPW) replaces optical Fabry-Pérot mirrors
+    \item \textbf{Artificial Atom:} Transmon qubit (Duffing oscillator) coupled to resonator via capacitive coupling $C_g$
+    \item \textbf{Substrate:} Aluminum or niobium on sapphire for low loss
+    \item \textbf{Field Confinement:} Tightly confined to $\sim 10^{-3}\lambda$, enabling large vacuum fluctuations $E_0 \approx 0.2 \text{ V/m}$
+    \item \textbf{Coupling Enhancement:} Circuit QED achieves $\approx 2 \times 10^4 \times$ stronger coupling than cavity QED
+\end{itemize}
+
+\subsection*{System Hamiltonian Hierarchy}
+\begin{itemize}
+    \item \textbf{Full Circuit Ham.:} $H = \frac{Q_r^2}{2C_r} + \frac{\Phi_r^2}{2L_r} + 4E_c \hat{n}^2 - E_j \cos \hat{\phi} - g(\hat{b}^\dagger - \hat{b})(\hat{a}^\dagger - \hat{a})$
+    \item \textbf{Two-Level Approx.:} $H = \omega_r \hat{a}^\dagger \hat{a} + \frac{\omega_{01}}{2} \hat{\sigma}_z - g(\hat{\sigma}_+ + \hat{\sigma}_-)(\hat{a}^\dagger + \hat{a})$
+    \item \textbf{After RWA:} $H = \omega_r \hat{a}^\dagger \hat{a} + \frac{\omega_{01}}{2} \hat{\sigma}_z + g(\hat{a}^\dagger \hat{\sigma}_- + \hat{a} \hat{\sigma}_+)$
+\end{itemize}
+
+\subsection*{Transmon-Specific Considerations}
+\begin{itemize}
+    \item \textbf{Anharmonicity:} $\delta = (E_{12} - E_{01})/\hbar$ from Duffing nonlinearity; enables selective single-qubit addressing
+    \item \textbf{Flux Tunability:} SQUID integration allows $\omega_{01}(\Phi_{\text{ext}})$ tuning via external magnetic flux
+    \item \textbf{Charging Energy:} $E_c = \frac{e^2}{2C}$ determines qubit-cavity detuning range
+    \item \textbf{Josephson Energy:} $E_j$ sets nonlinearity strength; transmon regime requires $E_j \gg E_c$
+\end{itemize}
+
+\newpage
+\section{Qubit Control}
+\subsection*{Readout and the Dispersive Regime}
+\begin{itemize}
+    \item \textbf{Full Jaynes-Cummings Hamiltonian:} $\hat{H} = \omega_r \hat{a}^\dagger \hat{a} + \frac{\omega_q}{2} \hat{\sigma}_z - g(\hat{a}^\dagger \hat{\sigma}_- + \hat{a} \hat{\sigma}_+)$
+    \item \textbf{Dispersive Approximation:} $\hat{H} \approx (\omega_r + \chi \hat{\sigma}_z) \hat{a}^\dagger \hat{a} + \frac{\omega_q}{2} \hat{\sigma}_z$
+    \item \textbf{Dispersive Regime Condition:} $g \ll |\omega_q - \omega_r|$, where $\Delta = \omega_q - \omega_r \gg g, \kappa$
+    \item \textbf{Purcell Decay Rate:} $\gamma_p = \left(\frac{g}{\Delta}\right)^2 \kappa$
+    \item \textbf{Cavity Decay Rate:} $\kappa = \frac{\omega_r}{Q}$
+    \item \textbf{Optimal Readout Balance:} $\chi/\kappa \approx 1$
+    \item \textbf{Purcell Filter:} Frequency-selective element with $\kappa_{\text{eff}}(\omega_q) \ll \kappa(\omega_r)$
+\end{itemize}
+
+\subsection*{Transmon Hamiltonian and Microwave Drive}
+\begin{itemize}
+    \item \textbf{Circuit Hamiltonian:} $\hat{H} = \frac{\hat{Q}^2}{2C_\Sigma} + \frac{\hat{\Phi}^2}{2L} + \frac{C_d}{C_\Sigma} V_d(t) \hat{Q}$
+    \item \textbf{Charge Operator:} $\hat{Q} = -i Q_{\text{zpf}}(\hat{a} - \hat{a}^\dagger)$ where $Q_{\text{zpf}} = \sqrt{\frac{\hbar}{2Z_0}}$
+    \item \textbf{Characteristic Impedance:} $Z_0 = \sqrt{\frac{L}{C_\Sigma}}$
+    \item \textbf{Two-Level Truncation:} $\hat{a} \to \hat{\sigma}_-$, $\hat{a}^\dagger \to \hat{\sigma}_+$
+    \item \textbf{Truncated Qubit Hamiltonian:} $\hat{H} = -\frac{\omega_q}{2} \hat{\sigma}_z + \Omega V_d(t) \hat{\sigma}_y$ where $\Omega = \frac{C_d}{C_\Sigma} Q_{\text{zpf}}$
+\end{itemize}
+
+\subsection*{Rotating Frame and Rotating Wave Approximation}
+\begin{itemize}
+    \item \textbf{Unitary Transformation:} $U(t) = e^{i\omega_q t \hat{\sigma}_z / 2}$
+    \item \textbf{Monochromatic Drive:} $V_d(t) = V_0 s(t) (I \sin(\omega_d t) - Q \cos(\omega_d t))$
+    \item \textbf{Effective Drive Hamiltonian (RWA):} $\hat{H}_d' = -\frac{\Omega}{2} V_0 s(t) (I\hat{\sigma}_x + Q\hat{\sigma}_y)$
+    \item \textbf{RWA Validity:} Neglects rapidly oscillating terms at $\omega_d + \omega_q$; valid when $\omega_d \approx \omega_q$
+\end{itemize}
+
+\subsection*{Virtual Z Gates and Phase Control}
+\begin{itemize}
+    \item \textbf{Software Phase Update:} $I' = I \cos \phi - Q \sin \phi$; $Q' = I \sin \phi + Q \cos \phi$
+    \item \textbf{Example (Virtual Z, $\phi = \pi/2$):} Initial pulse $(I=1, Q=0) \to (I'=0, Q'=1)$ converts X-rotation to Y-rotation
 \end{itemize}
 
 \end{document}
