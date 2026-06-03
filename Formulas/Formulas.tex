@@ -206,4 +206,427 @@
     \item \textbf{Example (Virtual Z, $\phi = \pi/2$):} Initial pulse $(I=1, Q=0) \to (I'=0, Q'=1)$ converts X-rotation to Y-rotation
 \end{itemize}
 
+
+\section{Qubit Characterization}
+
+\subsection*{Bloch Sphere and State Representation}
+\begin{itemize}
+    \item \textbf{Qubit State:} $|\psi\rangle = \cos\left(\frac{\theta}{2}\right)|0\rangle + e^{i\phi}\sin\left(\frac{\theta}{2}\right)|1\rangle$
+    \item \textbf{Bloch Vector:} $\vec{r} = \begin{pmatrix} r_x \\ r_y \\ r_z \end{pmatrix} = \begin{pmatrix} \sin\theta\cos\phi \\ \sin\theta\sin\phi \\ \cos\theta \end{pmatrix}$
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{lll}
+\textbf{Region} & \textbf{Axis Designation} & \textbf{Physical Counterpart} \\
+\hline
+North Pole & $+z$ & Longitudinal Axis \\
+South Pole & $-z$ & Longitudinal Axis \\
+Equator & $x$-$y$ Plane & Transverse Plane \\
+Precession & $\phi(t)$ & Rotation at $\omega_{01}$ (Lab Frame)
+\end{tabular}
+\end{center}
+
+\subsection*{Reference Frames and Resonance}
+\begin{itemize}
+    \item \textbf{Laboratory Frame:} The physical frame where the Bloch vector precesses around the $z$-axis at the qubit transition frequency $\omega_{01}$ when a transverse component exists.
+    \item \textbf{Rotating Frame:} A reference frame rotating at frequency $\omega_r$. When $\omega_r = \omega_{01}$, the Bloch vector appears stationary.
+    \item \textbf{Resonance Condition:} On resonance in the rotating frame, the ideal interaction Hamiltonian $H'$ is zero. Any observed movement in this frame is due to drive fields or noise.
+\end{itemize}
+
+\subsection*{Decoherence and Relaxation Rates}
+\begin{itemize}
+    \item \textbf{Energy Relaxation ($T_1$):} $\Gamma_1 \equiv 1/T_1$
+    \item \textbf{Rate Synthesis:} $\Gamma_1 = \Gamma_{1\downarrow} + \Gamma_{1\uparrow}$
+    \item \textbf{Boltzmann Excitation:} $\Gamma_{1\uparrow} = \Gamma_{1\downarrow}e^{-\hbar\omega/k_B T}$
+    \item \textbf{Pure Dephasing:} $\Gamma_\phi$ arises from longitudinal noise coupling via the $z$-axis and causes frequency fluctuations $\delta\omega(t)$.
+    \item \textbf{Transverse Relaxation ($T_2^*$):} $\Gamma_2 = \frac{\Gamma_1}{2} + \Gamma_\phi \quad \text{or} \quad \frac{1}{T_2^*} = \frac{1}{2T_1} + \frac{1}{T_\phi}$
+    \item \textbf{Phase-Breaking Justification:} Energy relaxation is phase-breaking; once $|1\rangle \rightarrow |0\rangle$, phase information is destroyed.
+    \item \textbf{Technology Note:} Transmon qubits are generally $T_1$-limited and typically exhibit relatively large $T_2$ times.
+\end{itemize}
+
+\subsection*{Characterization Measurement Protocols}
+\begin{itemize}
+    \item \textbf{Time of Flight (TOF):} Calibrates the propagation delay between readout pulse generation and signal arrival at the acquisition IP within the RFSoC.
+    \item \textbf{Requirement:} Mandatory first step; applied to all subsequent measurements.
+    \item \textbf{Resonator Spectroscopy:} Sweeps the readout tone to find the fundamental frequency; high power is used to decouple the qubit from the resonator.
+    \item \textbf{Drive Spectroscopy:} Two-tone experiment used to calibrate the drive frequency to the qubit transition frequency $f_q$.
+    \item \textbf{Calibration Example:} Identified $f_q = 3774.16$ MHz.
+    \item \textbf{Rabi Oscillations:} Used to calibrate frequency, duration, and gain after identifying $f_q$.
+    \item \textbf{Calibration Example (Digital Gain):} Calibrated $\pi$-pulse: $0.054$; calibrated $\pi/2$-pulse: $0.027$.
+    \item \textbf{Resonator Punchout:} 2D sweep of readout gain versus frequency to map power response and identify the dressed readout frequency.
+    \item \textbf{Physics:} At high power, the Josephson junction nonlinearity is suppressed; as power decreases, the resonance shifts to the dressed/dispersive readout frequency.
+\end{itemize}
+
+\subsection*{Coherence Measurements}
+\begin{itemize}
+    \item \textbf{$T_1$ Measurement:} $f(t) \propto e^{-t/T_1}$; signal decay of 63\% occurs at $t=T_1$.
+    \item \textbf{Ramsey Protocol ($T_2^*$):} $X_{\pi/2}$ --- wait $\tau$ --- $X_{\pi/2}$ --- measure.
+    \item \textbf{Mechanism:} Drive is detuned by $\delta\omega$ to induce controlled precession.
+    \item \textbf{Spin Echo ($T_2$):} $X_{\pi/2}$ --- wait $\tau/2$ --- $Y_\pi$ --- wait $\tau/2$ --- $X_{\pi/2}$ --- measure.
+    \item \textbf{Purpose:} The central $\pi$-pulse compensates for quasi-static noise.
+    \item \textbf{Interpretation:} $T_2$ (echo) $>$ $T_2^*$ (Ramsey) indicates low-frequency noise.
+\end{itemize}
+
+
+\section{TLine}
+
+\subsection*{Transmission Line Parameters}
+\begin{itemize}
+    \item \textbf{Resistance per unit length:} $R_0 \; [\Omega/\text{m}]$
+    \item \textbf{Inductance per unit length:} $L_0 \; [\text{H}/\text{m}]$
+    \item \textbf{Capacitance per unit length:} $C_0 \; [\text{F}/\text{m}]$
+    \item \textbf{Conductance per unit length:} $G_0 \; [\text{S}/\text{m}]$
+\end{itemize}
+
+\subsection*{The Telegrapher Equations}
+\begin{itemize}
+    \item \textbf{Voltage equation:} 
+    \[
+    \frac{\partial V(z,t)}{\partial z} = -R_0\, i(z,t) - L_0 \frac{\partial i(z,t)}{\partial t}
+    \]
+    \item \textbf{Current equation:}
+    \[
+    \frac{\partial i(z,t)}{\partial z} = -G_0\, V(z,t) - C_0 \frac{\partial V(z,t)}{\partial t}
+    \]
+    \item \textbf{Lossless line:} for $R_0 = 0$ and $G_0 = 0$,
+    \[
+    \frac{\partial^2 V}{\partial z^2} = L_0 C_0 \frac{\partial^2 V}{\partial t^2}
+    \]
+\end{itemize}
+
+\subsection*{Wave Propagation Dynamics}
+\begin{itemize}
+    \item \textbf{Propagation speed:}
+    \[
+    v = \frac{1}{\sqrt{L_0 C_0}}
+    \]
+    \item \textbf{Voltage solution:}
+    \[
+    V(z,t) = V^+(t - z/v) + V^-(t + z/v)
+    \]
+    \item \textbf{Characteristic impedance:}
+    \[
+    Z_0 = \sqrt{\frac{L_0}{C_0}}
+    \]
+    \item \textbf{Current waves:}
+    \[
+    i^+(z,t) = \frac{V^+(z,t)}{Z_0}, \qquad
+    i^-(z,t) = -\frac{V^-(z,t)}{Z_0}
+    \]
+\end{itemize}
+
+\subsection*{Reflections and Terminations}
+\begin{itemize}
+    \item \textbf{Voltage reflection coefficient:}
+    \[
+    \rho_v = \Gamma_L = \frac{R_L - Z_0}{R_L + Z_0}
+    \]
+    \item \textbf{Current reflection coefficient:}
+    \[
+    \rho_i = -\rho_v = \frac{Z_0 - R_L}{Z_0 + R_L}
+    \]
+    \item \textbf{Matched load:} if $R_L = Z_0$, then $\Gamma_L = 0$ and no reflections occur.
+\end{itemize}
+
+\subsection*{Power on the Transmission Line}
+\begin{itemize}
+    \item \textbf{Instantaneous power:} 
+    \[
+    p(z,t) = V(z,t)\, i(z,t)
+    \]
+    \item \textbf{Average power for a traveling wave:}
+    \[
+    P_{\text{avg}} = \frac{V_{\mathrm{rms}}^2}{Z_0} = I_{\mathrm{rms}}^2 Z_0
+    \]
+    \item \textbf{Power transfer:} maximum power is delivered when the line is matched to the load.
+\end{itemize}
+
+\section{Smatrix}
+\subsection*{Scattering Parameters for an Impedance Discontinuity}
+\begin{itemize}
+    \item \textbf{Impedances:} Two semi-infinite lines meet at a junction with characteristic impedances $Z_1$ and $Z_2$.
+    \item \textbf{Power-normalized waves:}
+    \[
+    a_n = \frac{V_n^+}{\sqrt{Z_n}}, \qquad b_n = \frac{V_n^-}{\sqrt{Z_n}}
+    \]
+    \item \textbf{Port convention:} Port 1 corresponds to $Z_1$, and Port 2 corresponds to $Z_2$.
+\end{itemize}
+
+\subsubsection*{Reflection and Transmission Coefficients}
+\begin{itemize}
+    \item \textbf{Reflection at the junction from Port 2:}
+    \[
+    S_{22} = \Gamma_{A^+} = \frac{Z_1 - Z_2}{Z_1 + Z_2}
+    \]
+    \item \textbf{Voltage transmission coefficient:}
+    \[
+    \frac{V_A^-}{V_A^+} = \frac{2Z_1}{Z_1 + Z_2}
+    \]
+    \item \textbf{Power-normalized transmission:}
+    \[
+    S_{12} = \sqrt{\frac{Z_2}{Z_1}} \cdot \frac{V_A^-}{V_A^+}
+    = \frac{2\sqrt{Z_1 Z_2}}{Z_1 + Z_2}
+    \]
+    \item \textbf{Symmetric result:} by reciprocity,
+    \[
+    S_{21} = \frac{2\sqrt{Z_1 Z_2}}{Z_1 + Z_2}
+    \]
+    \item \textbf{Reflection seen from Port 1:}
+    \[
+    S_{11} = \frac{Z_2 - Z_1}{Z_1 + Z_2}
+    \]
+\end{itemize}
+
+\subsubsection*{Scattering Matrix}
+\[
+\mathbf{S} = \frac{1}{Z_1 + Z_2}
+\begin{pmatrix}
+Z_2 - Z_1 & 2\sqrt{Z_1 Z_2} \\
+2\sqrt{Z_1 Z_2} & Z_1 - Z_2
+\end{pmatrix}
+\]
+
+\subsubsection*{Device Properties}
+\begin{itemize}
+    \item \textbf{Reciprocal:} $S_{12} = S_{21}$.
+    \item \textbf{Not symmetric:} generally $S_{11} \neq S_{22}$ unless $Z_1 = Z_2$.
+    \item \textbf{Lossless junction:} the S-matrix is unitary, $\mathbf{S}\mathbf{S}^\dagger = \mathbf{I}$.
+\end{itemize}
+
+
+\subsection*{Fundamental Power Wave Definitions}
+\begin{itemize}
+    \item \textbf{Incident wave:} 
+    \[
+    a_i = \frac{V_i + Z_{ri} I_i}{2\sqrt{Z_{ri}}}
+    \]
+    \item \textbf{Reflected wave:}
+    \[
+    b_i = \frac{V_i - Z_{ri} I_i}{2\sqrt{Z_{ri}}}
+    \]
+    \item \textbf{Power normalization:} $|a_i|^2$ and $|b_i|^2$ represent power in watts.
+    \item \textbf{Net real power at port $i$:}
+    \[
+    P_i = |a_i|^2 - |b_i|^2
+    \]
+    \item \textbf{Spatial propagation:}
+    \[
+    a(x) = a(0)e^{-jkx}, \qquad b(x) = b(0)e^{+jkx}
+    \]
+    \item \textbf{Reference impedance:} $Z_{ri}$ is the characteristic impedance used to normalize port waves.
+\end{itemize}
+
+\subsection*{General N-Port S-Matrix Framework}
+\begin{itemize}
+    \item \textbf{Black-box model:} internal circuit details are replaced by input-output relations between incident and reflected waves.
+    \item \textbf{S-matrix relation:}
+    \[
+    \mathbf{b} = \mathbf{S}\mathbf{a}
+    \]
+    \item \textbf{Matrix size:} for an $N$-port network, $\mathbf{S}$ is an $N \times N$ matrix.
+    \item \textbf{Scattering parameter definition:}
+    \[
+    S_{ij} = \left.\frac{b_i}{a_j}\right|_{a_k = 0 \ \text{for all}\ k \neq j}
+    \]
+    \item \textbf{Matched-load condition:} $a_k=0$ is realized by terminating all non-driven ports with their reference impedances.
+\end{itemize}
+
+\subsection*{Two-Port Network}
+\begin{itemize}
+    \item \textbf{Equations:}
+    \[
+    b_1 = S_{11}a_1 + S_{12}a_2, \qquad
+    b_2 = S_{21}a_1 + S_{22}a_2
+    \]
+    \item \textbf{Matrix form:}
+    \[
+    \begin{bmatrix} b_1 \\ b_2 \end{bmatrix}
+    =
+    \begin{bmatrix}
+    S_{11} & S_{12} \\
+    S_{21} & S_{22}
+    \end{bmatrix}
+    \begin{bmatrix} a_1 \\ a_2 \end{bmatrix}
+    \]
+\end{itemize}
+
+\subsection*{Physical Interpretation of S-Parameters}
+\begin{itemize}
+    \item \textbf{$S_{ii}$:} reflection coefficient seen looking into port $i$ with all other ports matched.
+    \item \textbf{$S_{ij}$:} transmission coefficient from port $j$ to port $i$.
+    \item \textbf{$S_{21}$:} forward transmission (gain/loss).
+    \item \textbf{$S_{12}$:} reverse isolation.
+    \item \textbf{Power directionality:} S-parameters quantify how much power is reflected or transmitted through the network.
+\end{itemize}
+
+\section{VNA}
+
+\subsection*{Power Wave Variable Definitions}
+\begin{itemize}
+    \item \textbf{$a_1$:} incident wave at Port 1.
+    \item \textbf{$b_1$:} power reflected from Port 1.
+    \item \textbf{$b_2$:} power transmitted through the DUT and leaving Port 2.
+    \item \textbf{$a_2$:} incident wave at Port 2.
+\end{itemize}
+
+\subsection*{Directional Coupler Performance}
+\begin{itemize}
+    \item \textbf{Coupling factor (dB):}
+    \[
+    \text{Coupling (dB)} = -10\log\!\left(\frac{P_{\text{coupling forward}}}{P_{\text{incident}}}\right)
+    \]
+    \item \textbf{Isolation factor (dB):}
+    \[
+    \text{Isolation (dB)} = -10\log\!\left(\frac{P_{\text{coupled reverse}}}{P_{\text{incident}}}\right)
+    \]
+    \item \textbf{Directivity (dB):}
+    \[
+    \text{Directivity (dB)} = \text{Isolation (dB)} - \text{Coupling (dB)}
+    \]
+    \item \textbf{Mainline loss:} total insertion loss in the primary through-line.
+\end{itemize}
+
+\subsection*{VNA Measurement Signal Relationships}
+\begin{itemize}
+    \item \textbf{Working principle:} a 3-way resistive splitter is used in simplified models to sample the input signal.
+    \item \textbf{Instrument architecture:} actual VNA hardware uses directional couplers to separate incident and reflected waves.
+    \item \textbf{Coherent receivers:} RX REF1, RX TEST1, RX REF2, and RX TEST2 share a common reference oscillator.
+\end{itemize}
+
+\subsection*{S-Parameter Extractions}
+\begin{itemize}
+    \item \textbf{Forward measurements:} when SW1 is in position 1,
+    \[
+    S_{11} = \frac{b_1}{a_1}, \qquad S_{21} = \frac{b_2}{a_1}
+    \]
+    \item \textbf{Reverse measurements:} when SW1 is in position 2,
+    \[
+    S_{22} = \frac{b_2}{a_2}, \qquad S_{12} = \frac{b_1}{a_2}
+    \]
+    \item \textbf{2$\times$2 S-matrix:}
+    \[
+    \begin{bmatrix}
+    S_{11} & S_{12} \\
+    S_{21} & S_{22}
+    \end{bmatrix}
+    \]
+    \item \textbf{Index convention:} $i$ = destination/output port, $j$ = source/input port.
+\end{itemize}
+
+\subsection*{Laboratory Reference}
+\begin{itemize}
+    \item \textbf{Core function:} characterizes amplitude and phase response over frequency without knowing the DUT topology.
+    \item \textbf{Applications:} filters, amplifiers, antennas, resonators, and couplers.
+    \item \textbf{Systems engineering:} with antennas, the VNA can function as a radar system.
+    \item \textbf{Advanced diagnostics:} can support material characterization and imaging applications.
+\end{itemize}
+
+\section{Modulations}
+
+\subsection*{Reference Nomenclature and Variable Definitions}
+\begin{itemize}
+    \item \textbf{$f_s$:} DAC/ADC sampling rate.
+    \item \textbf{$f_{rfmax}$:} upper bound of the allocated RF band.
+    \item \textbf{$f_c$:} RF center frequency (carrier frequency).
+    \item \textbf{$f_{C-IF}$:} local oscillator frequency for IF translation.
+    \item \textbf{$f_{IF}$:} intermediate frequency.
+    \item \textbf{$f_{s(BB)}$:} baseband sampling rate.
+    \item \textbf{ADC:} analogue-to-digital converter.
+    \item \textbf{DAC:} digital-to-analogue converter.
+    \item \textbf{DSP:} digital signal processing.
+\end{itemize}
+
+\subsection*{Nyquist Sampling Criterion for RF Systems}
+\begin{itemize}
+    \item \textbf{Primary condition:}
+    \[
+    f_s > 2f_{rfmax}
+    \]
+    \item \textbf{Condition met:} the digital/analogue interface can be placed directly at the RF stage.
+    \item \textbf{Condition not met:} a staged architecture using an intermediate frequency $f_{IF}$ is required.
+\end{itemize}
+
+\subsection*{Architectural Definitions}
+\begin{itemize}
+    \item \textbf{Heterodyning:} direct translation between baseband and RF in a single step.
+    \item \textbf{Superheterodyning:} multi-stage translation using an intermediate frequency $f_{IF}$.
+    \item \textbf{Stage 1:} baseband to intermediate frequency.
+    \item \textbf{Stage 2:} intermediate frequency to radio frequency.
+\end{itemize}
+
+\subsection*{Comparative Analysis of Radio Architectures}
+\begin{itemize}
+    \item \textbf{Direct RF:} ADC/DAC at the RF stage near the antenna; requires very high sampling rates.
+    \item \textbf{IF Sampling:} digital processing occurs at $f_{IF}$, while analogue mixers and LOs perform the RF translation.
+    \item \textbf{Baseband Sampling:} the interface is placed at baseband, and modulation/demodulation occurs in analogue hardware.
+    \item \textbf{Interface position logic:} higher sampling rates move the digital/analogue interface closer to the antenna.
+\end{itemize}
+
+\subsection*{Technical Advantages of Digital Implementation}
+\begin{itemize}
+    \item \textbf{Operational precision:} digital logic provides deterministic and accurate operation.
+    \item \textbf{Hardware robustness:} reduced drift from tolerances, thermal effects, and ageing.
+    \item \textbf{System efficiency:} smaller footprint, simpler BOM, and lower total power consumption.
+    \item \textbf{Flexibility:} reconfigurable hardware supports multiple communication standards via software.
+\end{itemize}
+
+\subsection*{Summary Reference Table}
+\begin{center}
+\begin{tabular}{lll}
+\textbf{Architecture} & \textbf{Typical Sampling Rate} & \textbf{Interface Position} \\
+\hline
+Direct RF & $\approx 10$ GSps & RF stage near antenna \\
+IF Sampling & 10s MSps & Intermediate frequency $f_{IF}$ \\
+Baseband Sampling & 10s--100s kSps & Baseband stage
+\end{tabular}
+\end{center}
+
+\section{Heterodyning}
+
+\subsection*{Fundamental Sampling Criterion}
+\begin{itemize}
+    \item \textbf{Nyquist-Shannon condition:}
+    \[
+    f_s > 2f_{rfmax}
+    \]
+    \item \textbf{$f_s$:} sampling rate of the ADC or DAC.
+    \item \textbf{$f_{rfmax}$:} maximum frequency component in the RF-modulated signal.
+    \item \textbf{Consequence:} if the condition is not met, an intermediate frequency stage is required.
+\end{itemize}
+
+\subsection*{Modulation and Demodulation Schemes}
+\begin{itemize}
+    \item \textbf{Heterodyning:} single-stage translation between baseband and RF using carrier frequency $f_c$.
+    \item \textbf{Superheterodyning:} two-stage translation via intermediate frequency $f_{IF}$.
+    \item \textbf{Stage 1:} baseband $\rightarrow$ IF.
+    \item \textbf{Stage 2:} IF $\rightarrow$ RF.
+    \item \textbf{Typical IF band:} 10s of MHz to 100s of MHz.
+    \item \textbf{Typical RF band:} 100s of MHz to 10s of GHz.
+\end{itemize}
+
+\subsection*{Comparative Analysis of Radio Architectures}
+\begin{center}
+\begin{tabular}{llll}
+\textbf{Architecture} & \textbf{Interface Placement} & \textbf{Typical Sampling Rate} & \textbf{Logic} \\
+\hline
+Direct RF & RF stage & $\approx 10$ GSps & DUC/DDC with interpolators, decimators, and NCOs \\
+IF Sampling & IF stage & 10s MSps & Analog IF-to-RF translation with image rejection filters \\
+Baseband Sampling & Baseband stage & 10s--100s kSps & Analog-domain modulation/demodulation
+\end{tabular}
+\end{center}
+
+\subsection*{Digital Processing Advantages}
+\begin{itemize}
+    \item \textbf{Operational precision:} deterministic accuracy and reduced nonlinear errors.
+    \item \textbf{Long-term reliability:} reduced sensitivity to drift and aging effects.
+    \item \textbf{Physical and fiscal efficiency:} smaller footprint, simpler BOM, and lower power.
+    \item \textbf{Architectural versatility:} reconfigurable hardware for multiple waveforms and bands.
+\end{itemize}
+
+\subsection*{RFSoC Integration}
+\begin{itemize}
+    \item \textbf{RFSoC:} integrates high-performance ADCs/DACs, digital logic, and processor cores on one CMOS die.
+    \item \textbf{Benefit:} enables direct digital modulation with reduced analog complexity.
+\end{itemize}
+
 \end{document}
