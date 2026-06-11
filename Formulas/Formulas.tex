@@ -15,60 +15,58 @@
 \section{Qubit Introduction}
 \subsection*{Fundamental Qubit Representation and State Vectors}
 \begin{itemize}
-    \item \textbf{General Superposition:} $|\psi\rangle = \alpha|0\rangle + \beta|1\rangle = \begin{bmatrix} \alpha \\ \beta \end{bmatrix}$ where $\alpha$ and $\beta$ are complex probability amplitudes.
-    \item \textbf{Normalization Condition:} $|\alpha|^2 + |\beta|^2 = 1=\langle\psi|\psi\rangle$
-    \item \textbf{Hermitian Conjugate:} $|\psi\rangle^\dagger = \langle\psi| = [\alpha^*, \beta^*]$
-
-    \item \textbf{Multi-Qubit System Scaling:} A system of $N$ qubits scales to $2^N$ components. For $N=3$: $|\psi\rangle = c_1|000\rangle + c_2|001\rangle + \cdots + c_8|111\rangle$
+    \item $|\psi\rangle = \alpha|0\rangle + \beta|1\rangle = \begin{bmatrix} \alpha \\ \beta \end{bmatrix}$
+    \item $|\alpha|^2 + |\beta|^2 = 1 = \langle\psi|\psi\rangle$
+    \item $|\psi\rangle^\dagger = \langle\psi| = [\alpha^*, \beta^*]$
+    \item $|\psi\rangle = c_1|000\rangle + c_2|001\rangle + \cdots + c_8|111\rangle$
 \end{itemize}
 
 \subsection*{The Bloch Sphere Geometry}
     \begin{itemize}
-    \item \textbf{General State Formula:} $|\psi\rangle = \cos\left(\frac{\theta}{2}\right)|0\rangle + e^{i\phi}\sin\left(\frac{\theta}{2}\right)|1\rangle$
-    \item \textbf{Bloch Vector Coordinates:} $|0\rangle$ (North Pole): $(0, 0, 1)$; $|1\rangle$ (South Pole): $(0, 0, -1)$; $|+\rangle$: $(1, 0, 0)$; $|-\rangle$: $(-1, 0, 0)$
+    \item $|\psi\rangle = \cos\left(\frac{\theta}{2}\right)|0\rangle + e^{i\phi}\sin\left(\frac{\theta}{2}\right)|1\rangle$
+    \item $(0,0,1),\ (0,0,-1),\ (1,0,0),\ (-1,0,0)$
 \end{itemize}
 
 \subsection*{Quantum Measurement and the Born Rule}
 \begin{itemize}
-    \item \textbf{State Collapse:} Measurement forces $|\psi\rangle$ to collapse into either $|0\rangle$ or $|1\rangle$.
-    \item \textbf{Born Rule:} $P(|a\rangle) = |\langle \psi|a \rangle|^2$
+    \item $P(|a\rangle) = |\langle \psi|a \rangle|^2$
 \end{itemize}
 
 \subsection*{Basis States in Different Representations}
 \begin{itemize}
-    \item \textbf{Computational Basis:} $|0\rangle = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$, $|1\rangle = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$
-    \item \textbf{Hadamard Basis:} $|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$, $|-\rangle = \frac{1}{\sqrt{2}}(|0\rangle - |1\rangle)$
-    \item \textbf{Circular Basis:} $|+i\rangle = \frac{1}{\sqrt{2}}(|0\rangle + i|1\rangle)$, $|-i\rangle = \frac{1}{\sqrt{2}}(|0\rangle - i|1\rangle)$
+    \item $|0\rangle = \begin{bmatrix} 1 \\ 0 \end{bmatrix},\ |1\rangle = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$
+    \item $|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle),\ |-\rangle = \frac{1}{\sqrt{2}}(|0\rangle - |1\rangle)$
+    \item $|+i\rangle = \frac{1}{\sqrt{2}}(|0\rangle + i|1\rangle),\ |-i\rangle = \frac{1}{\sqrt{2}}(|0\rangle - i|1\rangle)$
 \end{itemize}
 
 \subsection*{Single-Qubit Unitary Operators}
 \begin{itemize}
-    \item \textbf{X (NOT):} $\begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$
-    \item \textbf{Y:} $\begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}$
-    \item \textbf{Z:} $\begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}$
-    \item \textbf{Hadamard (H):} $\frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$
-    \item \textbf{Phase (S):} $\begin{bmatrix} 1 & 0 \\ 0 & i \end{bmatrix}$
-    \item \textbf{T:} $\begin{bmatrix} 1 & 0 \\ 0 & e^{i\pi/4} \end{bmatrix}$
-    \item \textbf{Rotation Gates:} $R_x(\theta) = e^{-i\theta X/2}, \quad R_y(\theta) = e^{-i\theta Y/2}, \quad R_z(\theta) = e^{-i\theta Z/2}$
+    \item $\begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$
+    \item $\begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}$
+    \item $\begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}$
+    \item $\frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$
+    \item $\begin{bmatrix} 1 & 0 \\ 0 & i \end{bmatrix}$
+    \item $\begin{bmatrix} 1 & 0 \\ 0 & e^{i\pi/4} \end{bmatrix}$
+    \item $R_x(\theta) = e^{-i\theta X/2},\ R_y(\theta) = e^{-i\theta Y/2},\ R_z(\theta) = e^{-i\theta Z/2}$
 \end{itemize}
 
 \subsection*{Two-Qubit Interactions: CNOT Gate}
 \begin{itemize}
-    \item \textbf{Mapping Rule:} $|A\rangle|B\rangle \to |A\rangle|A \oplus B\rangle$
-    \item \textbf{Matrix Representation:} $\text{CNOT} = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{bmatrix}$
+    \item $|A\rangle|B\rangle \to |A\rangle|A \oplus B\rangle$
+    \item $\text{CNOT} = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{bmatrix}$
 \end{itemize}
 
 \subsection*{Density Matrix Formalism}
 \begin{itemize}
-    \item \textbf{Definition:} $\rho = |\psi\rangle\langle\psi|$
-    \item \textbf{Mixed State Ensemble:} $\widehat{\rho}  \equiv  \sum_i p_i|\Psi_i\rangle\langle\Psi_i|$ where $p_i$ are probabilities and $\sum_i p_i = 1$
-    \item \textbf{Trace Property:} $\text{Tr}(\rho^2) = 1 $ if pure state;$ < 1$ if mixed state
+    \item $\rho = |\psi\rangle\langle\psi|$
+    \item $\widehat{\rho} \equiv \sum_i p_i|\Psi_i\rangle\langle\Psi_i|$
+    \item $\mathrm{Tr}(\rho^2) = 1$ if pure state; $< 1$ if mixed state
 \end{itemize}
 
 \subsection*{Qubit Performance Metrics}
 \begin{itemize}
-    \item \textbf{Coherence Time:} $\frac{1}{T_2} = \frac{1}{T_\phi} + \frac{1}{2T_1}$
-    \item \textbf{Gate Capacity:} $N_{\text{gates}} \sim \frac{T_2}{t_{\text{gate}}}$
+    \item $\frac{1}{T_2} = \frac{1}{T_\phi} + \frac{1}{2T_1}$
+    \item $N_{\text{gates}} \sim \frac{T_2}{t_{\text{gate}}}$
 \end{itemize}
 
 
@@ -77,133 +75,133 @@
 
 \subsection*{Fundamental Superconductivity and Cooper Pairs}
 \begin{itemize}
-    \item \textbf{Collective Wave Function:} $\psi = \psi_0 \exp\left[-\mathrm{j}\frac{1}{\hbar}(Et - \mathbf{p} \cdot \mathbf{x})\right]$ where $\mathrm{j} = \sqrt{-1}$
-    \item \textbf{Cooper Pair Density:} $\rho = \psi \cdot \psi^* = |\psi_0|^2$
-    \item \textbf{Meissner Effect:} $B = 0$
+    \item $\psi = \psi_0 \exp\left[-\mathrm{j}\frac{1}{\hbar}(Et - \mathbf{p} \cdot \mathbf{x})\right]$
+    \item $\rho = \psi \cdot \psi^* = |\psi_0|^2$
+    \item $B = 0$
 \end{itemize}
 
 \subsection*{Josephson Junction Dynamics}
 \begin{itemize}
-    \item \textbf{Phase Difference:} $\phi = \varphi_2 - \varphi_1$
-    \item \textbf{Current-Phase Relation:} $I = I_C \sin \phi$
-    \item \textbf{Voltage-Phase Relation:} $V = \frac{\Phi_0}{2\pi}\dot{\phi}$ where $\Phi_0 = \frac{h}{2e} = \frac{2\pi\hbar}{2e}$
-    \item \textbf{Josephson Inductance:} $L = \frac{\Phi_0}{2\pi I_C \cos \phi}$ and $L_j = \frac{\Phi_0}{2\pi I_C}$
-    \item \textbf{Josephson Energy:} $E_j(1 - \cos \phi)$
+    \item $\phi = \varphi_2 - \varphi_1$
+    \item $I = I_C \sin \phi$
+    \item $V = \frac{\Phi_0}{2\pi}\dot{\phi},\ \Phi_0 = \frac{h}{2e} = \frac{2\pi\hbar}{2e}$
+    \item $L = \frac{\Phi_0}{2\pi I_C \cos \phi},\ L_j = \frac{\Phi_0}{2\pi I_C}$
+    \item $E_j(1 - \cos \phi)$
 \end{itemize}
 
 \subsection*{LC Circuit Quantization}
 \begin{itemize}
-    \item \textbf{Hamiltonian:} $H = \frac{Q^2}{2C} + \frac{\Phi^2}{2L}$
-    \item \textbf{Resonant Frequency:} $\omega_{01} = \frac{1}{\sqrt{LC}}$
-    \item \textbf{Canonical Commutation:} $[\hat{\Phi}, \hat{Q}] = \mathrm{i}\hbar$ and $[\hat{a}, \hat{a}^\dagger] = 1$
+    \item $H = \frac{Q^2}{2C} + \frac{\Phi^2}{2L}$
+    \item $\omega_{01} = \frac{1}{\sqrt{LC}}$
+    \item $[\hat{\Phi}, \hat{Q}] = \mathrm{i}\hbar,\ [\hat{a}, \hat{a}^\dagger] = 1$
 \end{itemize}
 
 \subsection*{Transmon Qubit Parameters}
 \begin{itemize}
-    \item \textbf{Non-linear Inductance:} $L(\Phi) = \frac{\Phi_0}{2\pi I_C \cos(2\pi\Phi/\Phi_0)}$
-    \item \textbf{Transition Energy:} $E_{01} = \hbar\omega_{01} \approx 10 \text{ GHz}$
-    \item \textbf{Anharmonicity:} $E_{01} \neq E_{12}$ allows selective qubit control
-    \item \textbf{Operating Temperature:} $\approx 10 \text{ mK}$, requiring $k_B T \ll \hbar\omega_{01}$
-    \item \textbf{Gate Time:} $T_\pi \approx 4$--$20 \text{ ns}$
-    \item \textbf{Coherence Times:} $T_1, T_2 \sim 100$--$1000 \text{ } \mu\text{s}$
+    \item $L(\Phi) = \frac{\Phi_0}{2\pi I_C \cos(2\pi\Phi/\Phi_0)}$
+    \item $E_{01} = \hbar\omega_{01} \approx 10\,\text{GHz}$
+    \item $E_{01} \neq E_{12}$
+    \item $k_B T \ll \hbar\omega_{01}$
+    \item $T_\pi \approx 4$--$20\,\text{ns}$
+    \item $T_1, T_2 \sim 100$--$1000\,\mu\text{s}$
 \end{itemize}
 
 \newpage
 \section{Circuit QED}
 \subsection*{Fundamental Light-Matter Interaction}
 \begin{itemize}
-    \item \textbf{Dipole Coupling:} $H = -\vec{d} \cdot \vec{E}(t)$ where $\vec{d}$ is the electric dipole moment
-    \item \textbf{Rabi Frequency:} $\Omega_R = \frac{d E_0}{\hbar}$ for classical field amplitude $E_0$
+    \item $H = -\vec{d} \cdot \vec{E}(t)$
+    \item $\Omega_R = \frac{d E_0}{\hbar}$
 \end{itemize}
 
 \subsection*{Resonator Physics}
 \begin{itemize}
-    \item \textbf{Fabry-Pérot Resonance:} $2L = m\lambda_m$ where $m$ is the mode number
-    \item \textbf{Mode Separation:} $\Delta f = \frac{c}{2L}$
-    \item \textbf{LC Resonator Frequency:} $\omega_r = \frac{1}{\sqrt{L_r C_r}}$
-    \item \textbf{Quality Factor:} $Q = \frac{\omega_r}{\kappa}$ where $\kappa$ is the decay rate
+    \item $2L = m\lambda_m$
+    \item $\Delta f = \frac{c}{2L}$
+    \item $\omega_r = \frac{1}{\sqrt{L_r C_r}}$
+    \item $Q = \frac{\omega_r}{\kappa}$
 \end{itemize}
 
 \subsection*{Jaynes-Cummings Model}
 \begin{itemize}
-    \item \textbf{Full Hamiltonian:} $H = \hbar\omega_r\hat{a}^\dagger\hat{a} + \frac{\hbar\omega_{01}}{2}\hat{\sigma}_z + \hbar g(\hat{a}\hat{\sigma}_+ + \hat{a}^\dagger\hat{\sigma}_-)$
-    \item \textbf{Rotating Wave Approximation (RWA):} Neglects rapidly oscillating terms at frequency $\omega_r + \omega_{01}$
-    \item \textbf{Jaynes-Cummings (RWA):} $H_{JC} = \hbar\omega_r\hat{a}^\dagger\hat{a} + \frac{\hbar\omega_{01}}{2}\hat{\sigma}_z + \hbar g(\hat{a}\hat{\sigma}_+ + \hat{a}^\dagger\hat{\sigma}_-)$
+    \item $H = \hbar\omega_r\hat{a}^\dagger\hat{a} + \frac{\hbar\omega_{01}}{2}\hat{\sigma}_z + \hbar g(\hat{a}\hat{\sigma}_+ + \hat{a}^\dagger\hat{\sigma}_-)$
+    \item $H_{JC} = \hbar\omega_r\hat{a}^\dagger\hat{a} + \frac{\hbar\omega_{01}}{2}\hat{\sigma}_z + \hbar g(\hat{a}\hat{\sigma}_+ + \hat{a}^\dagger\hat{\sigma}_-)$
 \end{itemize}
 
 \subsection*{Coupling Strength}
 \begin{itemize}
-    \item \textbf{Coupling Formula:} $g = \omega_r \frac{C_g}{C} \left(\frac{E_j}{2E_c}\right)^{1/4} \sqrt{\frac{\pi Z_r}{R_k}}$ where $C_g$ is gate capacitance, $Z_r$ is resonator impedance, and $R_k = \frac{h}{e^2} \approx 25.8 \text{ k}\Omega$
-    \item \textbf{Typical Range:} $g/2\pi \approx 100$ MHz to $1$ GHz (strong coupling regime)
+    \item $g = \omega_r \frac{C_g}{C} \left(\frac{E_j}{2E_c}\right)^{1/4} \sqrt{\frac{\pi Z_r}{R_k}}$
+    \item $g/2\pi \approx 100\,\text{MHz} \text{ to } 1\,\text{GHz}$
 \end{itemize}
 
 \subsection*{Dispersive Regime}
 \begin{itemize}
-    \item \textbf{Condition:} $|\Delta| = |\omega_{01} - \omega_r| \gg g$
-    \item \textbf{Dispersive Shift (AC Stark Shift):} $\chi = \frac{g^2}{\Delta}$
-    \item \textbf{Effective Hamiltonian:} $H \approx (\omega_r + \chi \hat{\sigma}_z) \hat{a}^\dagger \hat{a} + \frac{\omega_{01}}{2} \hat{\sigma}_z$
-    \item \textbf{State-Dependent Resonator Frequency:} $\omega_r^{(0)} = \omega_r - \chi$ (ground state $|0\rangle$); $\omega_r^{(1)} = \omega_r + \chi$ (excited state $|1\rangle$)
-    \item \textbf{Readout via Dispersive Shift:} Phase accumulation $\propto \chi \hat{\sigma}_z t$ enables qubit-state discrimination without excitation
+    \item $|\Delta| = |\omega_{01} - \omega_r| \gg g$
+    \item $\chi = \frac{g^2}{\Delta}$
+    \item $H \approx (\omega_r + \chi \hat{\sigma}_z) \hat{a}^\dagger \hat{a} + \frac{\omega_{01}}{2} \hat{\sigma}_z$
+    \item $\omega_r^{(0)} = \omega_r - \chi$
+    \item $\omega_r^{(1)} = \omega_r + \chi$
+    \item $\propto \chi \hat{\sigma}_z t$
 \end{itemize}
 
 \subsection*{Circuit QED Implementation}
 \begin{itemize}
-    \item \textbf{Cavity Analogue:} Superconducting coplanar waveguide (CPW) replaces optical Fabry-Pérot mirrors
-    \item \textbf{Artificial Atom:} Transmon qubit (Duffing oscillator) coupled to resonator via capacitive coupling $C_g$
-    \item \textbf{Substrate:} Aluminum or niobium on sapphire for low loss
-    \item \textbf{Field Confinement:} Tightly confined to $\sim 10^{-3}\lambda$, enabling large vacuum fluctuations $E_0 \approx 0.2 \text{ V/m}$
-    \item \textbf{Coupling Enhancement:} Circuit QED achieves $\approx 2 \times 10^4 \times$ stronger coupling than cavity QED
+    \item $\sim 10^{-3}\lambda$
+    \item $E_0 \approx 0.2\,\text{V/m}$
+    \item $\approx 2 \times 10^4$
 \end{itemize}
 
 \subsection*{System Hamiltonian Hierarchy}
 \begin{itemize}
-    \item \textbf{Full Circuit Ham.:} $H = \frac{Q_r^2}{2C_r} + \frac{\Phi_r^2}{2L_r} + 4E_c \hat{n}^2 - E_j \cos \hat{\phi} - g(\hat{b}^\dagger - \hat{b})(\hat{a}^\dagger - \hat{a})$
-    \item \textbf{Two-Level Approx.:} $H = \omega_r \hat{a}^\dagger \hat{a} + \frac{\omega_{01}}{2} \hat{\sigma}_z - g(\hat{\sigma}_+ + \hat{\sigma}_-)(\hat{a}^\dagger + \hat{a})$
-    \item \textbf{After RWA:} $H = \omega_r \hat{a}^\dagger \hat{a} + \frac{\omega_{01}}{2} \hat{\sigma}_z + g(\hat{a}^\dagger \hat{\sigma}_- + \hat{a} \hat{\sigma}_+)$
+    \item $H = \frac{Q_r^2}{2C_r} + \frac{\Phi_r^2}{2L_r} + 4E_c \hat{n}^2 - E_j \cos \hat{\phi} - g(\hat{b}^\dagger - \hat{b})(\hat{a}^\dagger - \hat{a})$
+    \item $H = \omega_r \hat{a}^\dagger \hat{a} + \frac{\omega_{01}}{2} \hat{\sigma}_z - g(\hat{\sigma}_+ + \hat{\sigma}_-)(\hat{a}^\dagger + \hat{a})$
+    \item $H = \omega_r \hat{a}^\dagger \hat{a} + \frac{\omega_{01}}{2} \hat{\sigma}_z + g(\hat{a}^\dagger \hat{\sigma}_- + \hat{a} \hat{\sigma}_+)$
 \end{itemize}
 
 \subsection*{Transmon-Specific Considerations}
 \begin{itemize}
-    \item \textbf{Anharmonicity:} $\delta = (E_{12} - E_{01})/\hbar$ from Duffing nonlinearity; enables selective single-qubit addressing
-    \item \textbf{Flux Tunability:} SQUID integration allows $\omega_{01}(\Phi_{\text{ext}})$ tuning via external magnetic flux
-    \item \textbf{Charging Energy:} $E_c = \frac{e^2}{2C}$ determines qubit-cavity detuning range
-    \item \textbf{Josephson Energy:} $E_j$ sets nonlinearity strength; transmon regime requires $E_j \gg E_c$
+    \item $\delta = (E_{12} - E_{01})/\hbar$
+    \item $\omega_{01}(\Phi_{\text{ext}})$
+    \item $E_c = \frac{e^2}{2C}$
+    \item $E_j \gg E_c$
 \end{itemize}
 
 \newpage
 \section{Qubit Control}
 \subsection*{Readout and the Dispersive Regime}
 \begin{itemize}
-    \item \textbf{Full Jaynes-Cummings Hamiltonian:} $\hat{H} = \omega_r \hat{a}^\dagger \hat{a} + \frac{\omega_q}{2} \hat{\sigma}_z - g(\hat{a}^\dagger \hat{\sigma}_- + \hat{a} \hat{\sigma}_+)$
-    \item \textbf{Dispersive Approximation:} $\hat{H} \approx (\omega_r + \chi \hat{\sigma}_z) \hat{a}^\dagger \hat{a} + \frac{\omega_q}{2} \hat{\sigma}_z$
-    \item \textbf{Dispersive Regime Condition:} $g \ll |\omega_q - \omega_r|$, where $\Delta = \omega_q - \omega_r \gg g, \kappa$
-    \item \textbf{Purcell Decay Rate:} $\gamma_p = \left(\frac{g}{\Delta}\right)^2 \kappa$
-    \item \textbf{Cavity Decay Rate:} $\kappa = \frac{\omega_r}{Q}$
-    \item \textbf{Optimal Readout Balance:} $\chi/\kappa \approx 1$
-    \item \textbf{Purcell Filter:} Frequency-selective element with $\kappa_{\text{eff}}(\omega_q) \ll \kappa(\omega_r)$
+    \item $\hat{H} = \omega_r \hat{a}^\dagger \hat{a} + \frac{\omega_q}{2} \hat{\sigma}_z - g(\hat{a}^\dagger \hat{\sigma}_- + \hat{a} \hat{\sigma}_+)$
+    \item $\hat{H} \approx (\omega_r + \chi \hat{\sigma}_z) \hat{a}^\dagger \hat{a} + \frac{\omega_q}{2} \hat{\sigma}_z$
+    \item $g \ll |\omega_q - \omega_r|$
+    \item $\gamma_p = \left(\frac{g}{\Delta}\right)^2 \kappa$
+    \item $\kappa = \frac{\omega_r}{Q}$
+    \item $\chi/\kappa \approx 1$
+    \item $\kappa_{\text{eff}}(\omega_q) \ll \kappa(\omega_r)$
 \end{itemize}
 
 \subsection*{Transmon Hamiltonian and Microwave Drive}
 \begin{itemize}
-    \item \textbf{Circuit Hamiltonian:} $\hat{H} = \frac{\hat{Q}^2}{2C_\Sigma} + \frac{\hat{\Phi}^2}{2L} + \frac{C_d}{C_\Sigma} V_d(t) \hat{Q}$
-    \item \textbf{Charge Operator:} $\hat{Q} = -i Q_{\text{zpf}}(\hat{a} - \hat{a}^\dagger)$ where $Q_{\text{zpf}} = \sqrt{\frac{\hbar}{2Z_0}}$
-    \item \textbf{Characteristic Impedance:} $Z_0 = \sqrt{\frac{L}{C_\Sigma}}$
-    \item \textbf{Two-Level Truncation:} $\hat{a} \to \hat{\sigma}_-$, $\hat{a}^\dagger \to \hat{\sigma}_+$
-    \item \textbf{Truncated Qubit Hamiltonian:} $\hat{H} = -\frac{\omega_q}{2} \hat{\sigma}_z + \Omega V_d(t) \hat{\sigma}_y$ where $\Omega = \frac{C_d}{C_\Sigma} Q_{\text{zpf}}$
+    \item $\hat{H} = \frac{\hat{Q}^2}{2C_\Sigma} + \frac{\hat{\Phi}^2}{2L} + \frac{C_d}{C_\Sigma} V_d(t) \hat{Q}$
+    \item $\hat{Q} = -i Q_{\text{zpf}}(\hat{a} - \hat{a}^\dagger)$
+    \item $Q_{\text{zpf}} = \sqrt{\frac{\hbar}{2Z_0}}$
+    \item $Z_0 = \sqrt{\frac{L}{C_\Sigma}}$
+    \item $\hat{a} \to \hat{\sigma}_-$, $\hat{a}^\dagger \to \hat{\sigma}_+$
+    \item $\hat{H} = -\frac{\omega_q}{2} \hat{\sigma}_z + \Omega V_d(t) \hat{\sigma}_y$
 \end{itemize}
 
 \subsection*{Rotating Frame and Rotating Wave Approximation}
 \begin{itemize}
-    \item \textbf{Unitary Transformation:} $U(t) = e^{i\omega_q t \hat{\sigma}_z / 2}$
-    \item \textbf{Monochromatic Drive:} $V_d(t) = V_0 s(t) (I \sin(\omega_d t) - Q \cos(\omega_d t))$
-    \item \textbf{Effective Drive Hamiltonian (RWA):} $\hat{H}_d' = -\frac{\Omega}{2} V_0 s(t) (I\hat{\sigma}_x + Q\hat{\sigma}_y)$
-    \item \textbf{RWA Validity:} Neglects rapidly oscillating terms at $\omega_d + \omega_q$; valid when $\omega_d \approx \omega_q$
+    \item $U(t) = e^{i\omega_q t \hat{\sigma}_z / 2}$
+    \item $V_d(t) = V_0 s(t) (I \sin(\omega_d t) - Q \cos(\omega_d t))$
+    \item $\hat{H}_d' = -\frac{\Omega}{2} V_0 s(t) (I\hat{\sigma}_x + Q\hat{\sigma}_y)$
+    \item $\omega_d \approx \omega_q$
 \end{itemize}
 
 \subsection*{Virtual Z Gates and Phase Control}
 \begin{itemize}
-    \item \textbf{Software Phase Update:} $I' = I \cos \phi - Q \sin \phi$; $Q' = I \sin \phi + Q \cos \phi$
-    \item \textbf{Example (Virtual Z, $\phi = \pi/2$):} Initial pulse $(I=1, Q=0) \to (I'=0, Q'=1)$ converts X-rotation to Y-rotation
+    \item $I' = I \cos \phi - Q \sin \phi$
+    \item $Q' = I \sin \phi + Q \cos \phi$
+    \item $\phi = \pi/2$
 \end{itemize}
 
 
@@ -211,8 +209,8 @@
 
 \subsection*{Bloch Sphere and State Representation}
 \begin{itemize}
-    \item \textbf{Qubit State:} $|\psi\rangle = \cos\left(\frac{\theta}{2}\right)|0\rangle + e^{i\phi}\sin\left(\frac{\theta}{2}\right)|1\rangle$
-    \item \textbf{Bloch Vector:} $\vec{r} = \begin{pmatrix} r_x \\ r_y \\ r_z \end{pmatrix} = \begin{pmatrix} \sin\theta\cos\phi \\ \sin\theta\sin\phi \\ \cos\theta \end{pmatrix}$
+    \item $|\psi\rangle = \cos\left(\frac{\theta}{2}\right)|0\rangle + e^{i\phi}\sin\left(\frac{\theta}{2}\right)|1\rangle$
+    \item $\vec{r} = \begin{pmatrix} \sin\theta\cos\phi \\ \sin\theta\sin\phi \\ \cos\theta \end{pmatrix}$
 \end{itemize}
 
 \begin{center}
@@ -228,43 +226,33 @@ Precession & $\phi(t)$ & Rotation at $\omega_{01}$ (Lab Frame)
 
 \subsection*{Reference Frames and Resonance}
 \begin{itemize}
-    \item \textbf{Laboratory Frame:} The physical frame where the Bloch vector precesses around the $z$-axis at the qubit transition frequency $\omega_{01}$ when a transverse component exists.
-    \item \textbf{Rotating Frame:} A reference frame rotating at frequency $\omega_r$. When $\omega_r = \omega_{01}$, the Bloch vector appears stationary.
-    \item \textbf{Resonance Condition:} On resonance in the rotating frame, the ideal interaction Hamiltonian $H'$ is zero. Any observed movement in this frame is due to drive fields or noise.
+    \item $\omega_r = \omega_{01}$
+    \item $H' = 0$
 \end{itemize}
 
 \subsection*{Decoherence and Relaxation Rates}
 \begin{itemize}
-    \item \textbf{Energy Relaxation ($T_1$):} $\Gamma_1 \equiv 1/T_1$
-    \item \textbf{Rate Synthesis:} $\Gamma_1 = \Gamma_{1\downarrow} + \Gamma_{1\uparrow}$
-    \item \textbf{Boltzmann Excitation:} $\Gamma_{1\uparrow} = \Gamma_{1\downarrow}e^{-\hbar\omega/k_B T}$
-    \item \textbf{Pure Dephasing:} $\Gamma_\phi$ arises from longitudinal noise coupling via the $z$-axis and causes frequency fluctuations $\delta\omega(t)$.
-    \item \textbf{Transverse Relaxation ($T_2^*$):} $\Gamma_2 = \frac{\Gamma_1}{2} + \Gamma_\phi \quad \text{or} \quad \frac{1}{T_2^*} = \frac{1}{2T_1} + \frac{1}{T_\phi}$
-    \item \textbf{Phase-Breaking Justification:} Energy relaxation is phase-breaking; once $|1\rangle \rightarrow |0\rangle$, phase information is destroyed.
-    \item \textbf{Technology Note:} Transmon qubits are generally $T_1$-limited and typically exhibit relatively large $T_2$ times.
+    \item $\Gamma_1 \equiv 1/T_1$
+    \item $\Gamma_1 = \Gamma_{1\downarrow} + \Gamma_{1\uparrow}$
+    \item $\Gamma_{1\uparrow} = \Gamma_{1\downarrow}e^{-\hbar\omega/k_B T}$
+    \item $\Gamma_\phi$
+    \item $\Gamma_2 = \frac{\Gamma_1}{2} + \Gamma_\phi$
+    \item $\frac{1}{T_2^*} = \frac{1}{2T_1} + \frac{1}{T_\phi}$
 \end{itemize}
 
 \subsection*{Characterization Measurement Protocols}
 \begin{itemize}
-    \item \textbf{Time of Flight (TOF):} Calibrates the propagation delay between readout pulse generation and signal arrival at the acquisition IP within the RFSoC.
-    \item \textbf{Requirement:} Mandatory first step; applied to all subsequent measurements.
-    \item \textbf{Resonator Spectroscopy:} Sweeps the readout tone to find the fundamental frequency; high power is used to decouple the qubit from the resonator.
-    \item \textbf{Drive Spectroscopy:} Two-tone experiment used to calibrate the drive frequency to the qubit transition frequency $f_q$.
-    \item \textbf{Calibration Example:} Identified $f_q = 3774.16$ MHz.
-    \item \textbf{Rabi Oscillations:} Used to calibrate frequency, duration, and gain after identifying $f_q$.
-    \item \textbf{Calibration Example (Digital Gain):} Calibrated $\pi$-pulse: $0.054$; calibrated $\pi/2$-pulse: $0.027$.
-    \item \textbf{Resonator Punchout:} 2D sweep of readout gain versus frequency to map power response and identify the dressed readout frequency.
-    \item \textbf{Physics:} At high power, the Josephson junction nonlinearity is suppressed; as power decreases, the resonance shifts to the dressed/dispersive readout frequency.
+    \item $f_q = 3774.16\,\text{MHz}$
+    \item $0.054$
+    \item $0.027$
 \end{itemize}
 
 \subsection*{Coherence Measurements}
 \begin{itemize}
-    \item \textbf{$T_1$ Measurement:} $f(t) \propto e^{-t/T_1}$; signal decay of 63\% occurs at $t=T_1$.
-    \item \textbf{Ramsey Protocol ($T_2^*$):} $X_{\pi/2}$ --- wait $\tau$ --- $X_{\pi/2}$ --- measure.
-    \item \textbf{Mechanism:} Drive is detuned by $\delta\omega$ to induce controlled precession.
-    \item \textbf{Spin Echo ($T_2$):} $X_{\pi/2}$ --- wait $\tau/2$ --- $Y_\pi$ --- wait $\tau/2$ --- $X_{\pi/2}$ --- measure.
-    \item \textbf{Purpose:} The central $\pi$-pulse compensates for quasi-static noise.
-    \item \textbf{Interpretation:} $T_2$ (echo) $>$ $T_2^*$ (Ramsey) indicates low-frequency noise.
+    \item $f(t) \propto e^{-t/T_1}$
+    \item $X_{\pi/2}$ --- wait $\tau$ --- $X_{\pi/2}$
+    \item $X_{\pi/2}$ --- wait $\tau/2$ --- $Y_\pi$ --- wait $\tau/2$ --- $X_{\pi/2}$
+    \item $T_2 > T_2^*$
 \end{itemize}
 
 
@@ -450,24 +438,6 @@ Z_2 - Z_1 & 2\sqrt{Z_1 Z_2} \\
     \]
 \end{itemize}
 
-\subsection*{Physical Interpretation of S-Parameters}
-\begin{itemize}
-    \item \textbf{$S_{ii}$:} reflection coefficient seen looking into port $i$ with all other ports matched.
-    \item \textbf{$S_{ij}$:} transmission coefficient from port $j$ to port $i$.
-    \item \textbf{$S_{21}$:} forward transmission (gain/loss).
-    \item \textbf{$S_{12}$:} reverse isolation.
-    \item \textbf{Power directionality:} S-parameters quantify how much power is reflected or transmitted through the network.
-\end{itemize}
-
-\section{VNA}
-
-\subsection*{Power Wave Variable Definitions}
-\begin{itemize}
-    \item \textbf{$a_1$:} incident wave at Port 1.
-    \item \textbf{$b_1$:} power reflected from Port 1.
-    \item \textbf{$b_2$:} power transmitted through the DUT and leaving Port 2.
-    \item \textbf{$a_2$:} incident wave at Port 2.
-\end{itemize}
 
 \subsection*{Directional Coupler Performance}
 \begin{itemize}
@@ -484,13 +454,6 @@ Z_2 - Z_1 & 2\sqrt{Z_1 Z_2} \\
     \text{Directivity (dB)} = \text{Isolation (dB)} - \text{Coupling (dB)}
     \]
     \item \textbf{Mainline loss:} total insertion loss in the primary through-line.
-\end{itemize}
-
-\subsection*{VNA Measurement Signal Relationships}
-\begin{itemize}
-    \item \textbf{Working principle:} a 3-way resistive splitter is used in simplified models to sample the input signal.
-    \item \textbf{Instrument architecture:} actual VNA hardware uses directional couplers to separate incident and reflected waves.
-    \item \textbf{Coherent receivers:} RX REF1, RX TEST1, RX REF2, and RX TEST2 share a common reference oscillator.
 \end{itemize}
 
 \subsection*{S-Parameter Extractions}
@@ -513,120 +476,322 @@ Z_2 - Z_1 & 2\sqrt{Z_1 Z_2} \\
     \item \textbf{Index convention:} $i$ = destination/output port, $j$ = source/input port.
 \end{itemize}
 
-\subsection*{Laboratory Reference}
-\begin{itemize}
-    \item \textbf{Core function:} characterizes amplitude and phase response over frequency without knowing the DUT topology.
-    \item \textbf{Applications:} filters, amplifiers, antennas, resonators, and couplers.
-    \item \textbf{Systems engineering:} with antennas, the VNA can function as a radar system.
-    \item \textbf{Advanced diagnostics:} can support material characterization and imaging applications.
-\end{itemize}
+\newpage
+\section{RF Components and VNA Fundamentals}
 
-\section{Modulations}
-
-\subsection*{Reference Nomenclature and Variable Definitions}
+\subsection*{Coupling Factor (dB)}
 \begin{itemize}
-    \item \textbf{$f_s$:} DAC/ADC sampling rate.
-    \item \textbf{$f_{rfmax}$:} upper bound of the allocated RF band.
-    \item \textbf{$f_c$:} RF center frequency (carrier frequency).
-    \item \textbf{$f_{C-IF}$:} local oscillator frequency for IF translation.
-    \item \textbf{$f_{IF}$:} intermediate frequency.
-    \item \textbf{$f_{s(BB)}$:} baseband sampling rate.
-    \item \textbf{ADC:} analogue-to-digital converter.
-    \item \textbf{DAC:} digital-to-analogue converter.
-    \item \textbf{DSP:} digital signal processing.
-\end{itemize}
-
-\subsection*{Nyquist Sampling Criterion for RF Systems}
-\begin{itemize}
-    \item \textbf{Primary condition:}
+    \item Measures the power diverted to the coupled path relative to the incident power.
     \[
-    f_s > 2f_{rfmax}
+    \text{Coupling Factor (dB)} = -10 \log \left( \frac{P_{\text{coupling forward}}}{P_{\text{incident}}} \right)
     \]
-    \item \textbf{Condition met:} the digital/analogue interface can be placed directly at the RF stage.
-    \item \textbf{Condition not met:} a staged architecture using an intermediate frequency $f_{IF}$ is required.
 \end{itemize}
 
-\subsection*{Architectural Definitions}
+\subsection*{VNA Signal Measurements}
 \begin{itemize}
-    \item \textbf{Heterodyning:} direct translation between baseband and RF in a single step.
-    \item \textbf{Superheterodyning:} multi-stage translation using an intermediate frequency $f_{IF}$.
-    \item \textbf{Stage 1:} baseband to intermediate frequency.
-    \item \textbf{Stage 2:} intermediate frequency to radio frequency.
+    \item \textbf{$RX_{\text{REF}}$:} measures $a_1$ (incident wave)
+    \item \textbf{$RX_{\text{TEST1}}$:} measures $b_1$ (reflected wave)
+    \item \textbf{$RX_{\text{TEST2}}$:} measures $b_2$ (transmitted wave)
 \end{itemize}
 
-\subsection*{Comparative Analysis of Radio Architectures}
+\newpage
+\section{Complex Signal Foundations}
+
+\subsection*{Euler's Formula}
 \begin{itemize}
-    \item \textbf{Direct RF:} ADC/DAC at the RF stage near the antenna; requires very high sampling rates.
-    \item \textbf{IF Sampling:} digital processing occurs at $f_{IF}$, while analogue mixers and LOs perform the RF translation.
-    \item \textbf{Baseband Sampling:} the interface is placed at baseband, and modulation/demodulation occurs in analogue hardware.
-    \item \textbf{Interface position logic:} higher sampling rates move the digital/analogue interface closer to the antenna.
-\end{itemize}
-
-\subsection*{Technical Advantages of Digital Implementation}
-\begin{itemize}
-    \item \textbf{Operational precision:} digital logic provides deterministic and accurate operation.
-    \item \textbf{Hardware robustness:} reduced drift from tolerances, thermal effects, and ageing.
-    \item \textbf{System efficiency:} smaller footprint, simpler BOM, and lower total power consumption.
-    \item \textbf{Flexibility:} reconfigurable hardware supports multiple communication standards via software.
-\end{itemize}
-
-\subsection*{Summary Reference Table}
-\begin{center}
-\begin{tabular}{lll}
-\textbf{Architecture} & \textbf{Typical Sampling Rate} & \textbf{Interface Position} \\
-\hline
-Direct RF & $\approx 10$ GSps & RF stage near antenna \\
-IF Sampling & 10s MSps & Intermediate frequency $f_{IF}$ \\
-Baseband Sampling & 10s--100s kSps & Baseband stage
-\end{tabular}
-\end{center}
-
-\section{Heterodyning}
-
-\subsection*{Fundamental Sampling Criterion}
-\begin{itemize}
-    \item \textbf{Nyquist-Shannon condition:}
+    \item The mathematical basis for representing real signals in the complex domain.
     \[
-    f_s > 2f_{rfmax}
+    e^{j\omega t} = \cos \omega t + j \sin \omega t
     \]
-    \item \textbf{$f_s$:} sampling rate of the ADC or DAC.
-    \item \textbf{$f_{rfmax}$:} maximum frequency component in the RF-modulated signal.
-    \item \textbf{Consequence:} if the condition is not met, an intermediate frequency stage is required.
+    \[
+    e^{-j\omega t} = \cos \omega t - j \sin \omega t
+    \]
 \end{itemize}
 
-\subsection*{Modulation and Demodulation Schemes}
+\subsection*{Trigonometric to Complex Exponential Conversion}
 \begin{itemize}
-    \item \textbf{Heterodyning:} single-stage translation between baseband and RF using carrier frequency $f_c$.
-    \item \textbf{Superheterodyning:} two-stage translation via intermediate frequency $f_{IF}$.
-    \item \textbf{Stage 1:} baseband $\rightarrow$ IF.
-    \item \textbf{Stage 2:} IF $\rightarrow$ RF.
-    \item \textbf{Typical IF band:} 10s of MHz to 100s of MHz.
-    \item \textbf{Typical RF band:} 100s of MHz to 10s of GHz.
+    \item Converting sinusoids to exponential forms:
+    \[
+    2 \cos \omega t = e^{j\omega t} + e^{-j\omega t}
+    \]
+    \[
+    2j \sin \omega t = e^{j\omega t} - e^{-j\omega t}
+    \]
 \end{itemize}
 
-\subsection*{Comparative Analysis of Radio Architectures}
-\begin{center}
-\begin{tabular}{llll}
-\textbf{Architecture} & \textbf{Interface Placement} & \textbf{Typical Sampling Rate} & \textbf{Logic} \\
-\hline
-Direct RF & RF stage & $\approx 10$ GSps & DUC/DDC with interpolators, decimators, and NCOs \\
-IF Sampling & IF stage & 10s MSps & Analog IF-to-RF translation with image rejection filters \\
-Baseband Sampling & Baseband stage & 10s--100s kSps & Analog-domain modulation/demodulation
-\end{tabular}
-\end{center}
-
-\subsection*{Digital Processing Advantages}
+\subsection*{Magnitude and Phase Extraction}
 \begin{itemize}
-    \item \textbf{Operational precision:} deterministic accuracy and reduced nonlinear errors.
-    \item \textbf{Long-term reliability:} reduced sensitivity to drift and aging effects.
-    \item \textbf{Physical and fiscal efficiency:} smaller footprint, simpler BOM, and lower power.
-    \item \textbf{Architectural versatility:} reconfigurable hardware for multiple waveforms and bands.
+    \item \textbf{Magnitude line spectra:} 
+    \[
+    2\sqrt{A^2(f) + B^2(f)}
+    \]
+    \item \textbf{Phase spectra:} 
+    \[
+    \tan^{-1}\left(\frac{B(f)}{A(f)}\right)
+    \]
 \end{itemize}
 
-\subsection*{RFSoC Integration}
+\newpage
+\section{Signal Modulation}
+
+\subsection*{General Sine Wave Equation}
 \begin{itemize}
-    \item \textbf{RFSoC:} integrates high-performance ADCs/DACs, digital logic, and processor cores on one CMOS die.
-    \item \textbf{Benefit:} enables direct digital modulation with reduced analog complexity.
+    \item \textbf{Time-domain representation:}
+    \[
+    v(t) = A \cdot \sin(2\pi ft + \phi)
+    \]
+    where $A$ is amplitude, $f$ is frequency, and $\phi$ is phase.
+\end{itemize}
+
+\subsection*{Amplitude Modulation (AM)}
+\begin{itemize}
+    \item \textbf{Time-domain equation:}
+    \[
+    s(t) = \left[A_c + A_m \cos 2\pi f_m t\right] \cos 2\pi f_c t
+    \]
+    where $A_c$ is carrier amplitude, $A_m$ is modulation amplitude, $f_c$ is carrier frequency, and $f_m$ is modulation frequency.
+    \item \textbf{Trigonometric identity for frequency shifting:} 
+    \[
+    \cos A \cos B = \frac{1}{2}[\cos(A + B) + \cos(A - B)]
+    \]
+    \item \textbf{Expanded AM equation (sidebands):}
+    \[
+    s(t) = A_c \cos 2\pi f_c t + \frac{A_m}{2} \cos 2\pi(f_c + f_m)t + \frac{A_m}{2} \cos 2\pi(f_c - f_m)t
+    \]
+\end{itemize}
+
+\newpage
+\section{Quadrature (I/Q) Modulation and Demodulation}
+
+\subsection*{I/Q Modulation Time-Domain Equation}
+\begin{itemize}
+    \item \textbf{General form:}
+    \[
+    y(t) = g_1(t) \cos 2\pi f_c t - g_2(t) \sin 2\pi f_c t
+    \]
+    where $g_1(t)$ is the In-Phase (I) signal and $g_2(t)$ is the Quadrature (Q) signal.
+\end{itemize}
+
+\subsection*{Complex Baseband Signal Representation}
+\begin{itemize}
+    \item \textbf{Complex envelope:}
+    \[
+    g(t) = g_1(t) + j g_2(t)
+    \]
+    \item \textbf{Quadrature modulation (complex notation):}
+    \[
+    v(t) = \text{Re}\left\{g(t) e^{j2\pi f_c t}\right\}
+    \]
+    \item \textbf{Expanded form:}
+    \[
+    v(t) = g_1(t) \cos(2\pi f_c t) - g_2(t) \sin(2\pi f_c t)
+    \]
+\end{itemize}
+
+\subsection*{Quadrature Demodulation Process}
+\begin{itemize}
+    \item \textbf{Total received signal ($x(t)$):}
+    \[
+    x(t) = y(t) e^{-j2\pi f_c t}
+    \]
+    \item \textbf{In-Phase extraction ($z_1(t)$):}
+    \[
+    z_1(t) = \frac{1}{2} g_1(t) + [\text{high-frequency terms}]
+    \]
+    \item \textbf{Quadrature extraction ($z_2(t)$):}
+    \[
+    z_2(t) = \frac{1}{2} g_2(t) + [\text{high-frequency terms}]
+    \]
+    (after low-pass filtering to remove high-frequency components)
+\end{itemize}
+
+\subsection*{Signal Examples}
+\begin{itemize}
+    \item \textbf{Sum of three tones (real):}
+    \[
+    s_1(t) = 10 \cos 2\pi 100t + \cos 2\pi 200t + 4 \cos 2\pi 300t
+    \]
+    \item \textbf{Sum of three tones with phase shift:}
+    \[
+    s_2(t) = 10 \cos\left(2\pi 100t + \frac{\pi}{4}\right) + \cos\left(2\pi 200t + \frac{\pi}{6}\right) + 4 \cos 2\pi 300t
+    \]
+\end{itemize}
+
+\newpage
+\section{Digital Signal Processing}
+
+\subsection*{Sampling and Aliasing}
+\begin{itemize}
+    \item \textbf{Sampling Rate ($f_s$):} The inverse of the sampling period ($t_s$).
+    \[
+    f_s = \frac{1}{t_s}
+    \]
+    \item \textbf{Nyquist-Shannon Criterion (Undersampling):} For a band-limited signal between frequencies $f_l$ and $f_h$.
+    \[
+    f_s > 2(f_h - f_l)
+    \]
+    \item \textbf{Alias Frequency:} The frequency at which a signal $f$ appears when sampled at $f_s$.
+    \[
+    f_{\text{alias}} = |f - n \cdot f_s|
+    \]
+    \item \textbf{Spectral Image Locations (DAC):} Positions of unwanted images after D/A conversion.
+    \[
+    \text{Location} = N \cdot f_s \pm f
+    \]
+    where $N$ is an integer and $f$ is the generated signal frequency.
+\end{itemize}
+
+\subsection*{Quantization and Performance Metrics}
+\begin{itemize}
+    \item \textbf{Quantization Step ($q$):} The voltage difference between two adjacent discrete levels.
+    \[
+    q = \frac{V_{\text{FS}}}{2^N - 1}
+    \]
+    where $V_{\text{FS}} = 2V_{\max}$ is the full-scale voltage.
+    \item \textbf{ADC Resolution ($\Delta$):}
+    \[
+    \Delta = \frac{V_{\max} - V_{\min}}{2^n}
+    \]
+    \item \textbf{Dynamic Range (DR):} Logarithmic ratio between the largest and smallest measurable values.
+    \[
+    \text{DR} = 20 \log_{10}(2^N) \approx 6.02N \text{ [dB]}
+    \]
+    \item \textbf{Quantization Noise:} Idealized model of the noise characteristics.
+    \[
+    \text{Noise Power} = \frac{q^2}{12}
+    \]
+    \item \textbf{Spurious Free Dynamic Range (SFDR):}
+    \[
+    \text{SFDR} = \frac{P_{\text{fundamental}}}{P_{\text{biggest\_spur}}}
+    \]
+\end{itemize}
+
+\subsection*{Fixed-Point Data Representation (Qn.b format)}
+\begin{itemize}
+    \item \textbf{Unsigned Range:}
+    \begin{itemize}
+        \item Minimum: $0$
+        \item Maximum: $2^n - 2^{-b}$
+    \end{itemize}
+    \item \textbf{Signed 2's Complement Range:}
+    \begin{itemize}
+        \item Minimum: $-2^{n-1}$
+        \item Maximum: $2^{n-1} - 2^{-b}$
+    \end{itemize}
+    \item \textbf{Precision/Resolution:} The smallest representable number.
+    \[
+    \text{Resolution} = 2^{-b}
+    \]
+    \item \textbf{Arithmetic Bit-Width Expansion:}
+    \begin{itemize}
+        \item Addition/Subtraction: Requires $n+1$ bits to avoid overflow.
+        \item Multiplication: Multiplying $Q(m1.n1)$ and $Q(m2.n2)$ results in $Q(m1+m2).(n1+n2)$.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Multirate Operations}
+\begin{itemize}
+    \item \textbf{Decimation:} Reducing the sampling rate by an integer factor $M$.
+    \[
+    f_d = \frac{f_s}{M}
+    \]
+    \item \textbf{Interpolation:} Increasing the sampling rate by an integer factor $L$.
+    \[
+    f_u = L \cdot f_s
+    \]
+    \item \textbf{Interpolated Image Location:} The location of the first image after interpolation by factor $K$.
+    \[
+    f_{\text{image}} = K \cdot f_c - f_o
+    \]
+\end{itemize}
+
+\subsection*{Data Converter Hardware Dynamics}
+\begin{itemize}
+    \item \textbf{Interleaved ADC Sampling Phase:} The phase offset for the $n^{\text{th}}$ sub-ADC in a system of $m$ interleaved converters.
+    \[
+    \theta_n = \frac{2\pi(n - 1)}{m}
+    \]
+    \item \textbf{DAC Frequency Response (Normal Mode):} Follows a sinc envelope.
+    \[
+    H(f) = \frac{\sin(x)}{x}, \quad \text{where} \quad x = \frac{\pi f}{f_s}
+    \]
+    \item \textbf{DAC Frequency Response (Mix-Mode):} Reshapes energy for the 2nd Nyquist Zone.
+    \[
+    H(f) = \frac{\sin^2(x)}{x}, \quad \text{where} \quad x = \frac{\pi f}{2f_s}
+    \]
+\end{itemize}
+
+\newpage
+\section{Semiconductor Qubits and the Elzerman Method}
+
+\subsection*{Energy Level and Temperature Requirements}
+\begin{itemize}
+    \item \textbf{Zeeman Energy ($\Delta E_Z$):} Approximately $200 \, \mu\text{eV}$ at a magnetic field of 10 T.
+    \item \textbf{Thermal Energy ($kT$):} Approximately $25 \, \mu\text{eV}$ at a temperature of 0.3 K.
+    \item \textbf{Orbital Energy Spacing ($\Delta E_{\text{orbital}}$):} Approximately $1.1 \, \text{meV}$.
+    \item \textbf{System Requirement Formula:} To ensure a valid qubit state, the parameters must satisfy:
+    \[
+    \Delta E_{\text{orbital}} \gg \Delta E_Z \gg kT
+    \]
+\end{itemize}
+
+\subsection*{Tuning and Bias Formulas}
+\begin{itemize}
+    \item \textbf{Optimal Bias Point ($V_M$):} The voltage $V_M$ sets the bias point for energy level oscillations.
+    \item \textbf{Optimal Working Point Calculation:} If the crossing point where the spin-up electron energy exceeds the Fermi level is $V_{M0}$, the optimal working point to place the Fermi energy halfway between levels is:
+    \[
+    V_M = V_{M0} + \frac{1}{2e} \Delta E_Z
+    \]
+\end{itemize}
+
+\subsection*{Measurement Fidelity and Probability}
+\begin{itemize}
+    \item \textbf{Error Probability $\alpha$:} The probability of measuring ``down'' when the state is spin-up.
+    \[
+    \alpha = P(\text{``down''} \mid \text{spin-}\uparrow)
+    \]
+    \item \textbf{Error Probability $\beta$:} The probability of measuring ``up'' when the state is spin-down.
+    \[
+    \beta = P(\text{``up''} \mid \text{spin-}\downarrow)
+    \]
+    \item \textbf{Decay and Detection Rate ($\beta_1$):}
+    \[
+    \beta_1 = \frac{1}{1 + T_1 \Gamma_\downarrow}
+    \]
+    \item \textbf{Combined $\beta$ Estimation:}
+    \[
+    1 - \beta \sim (1 - \beta_1)(1 - \beta_2) + \alpha \beta_1
+    \]
+    \item \textbf{Spin-up Fidelity:} $1 - \alpha$
+    \item \textbf{Visibility Formula:}
+    \[
+    \text{Visibility} = 1 - \alpha - \beta
+    \]
+\end{itemize}
+
+\subsection*{Qubit Interaction and Control}
+\begin{itemize}
+    \item \textbf{Hamiltonian Basis:} The baseline Hamiltonian for the split levels is represented as:
+    \[
+    H_0 \sim \sum \omega_i \sigma_{zi}
+    \]
+    \item \textbf{Exchange Interaction ($J$):} In two-qubit systems, the exchange interaction is computed using the difference in resonance frequencies ($f$) of one qubit based on the state of the other:
+    \[
+    J = f_2 - f_1 \quad \text{or} \quad J = f_4 - f_3
+    \]
+    where $f_1/f_2$ are resonance frequencies for $q_0$ given $q_1$ states, and $f_3/f_4$ are for $q_1$ given $q_0$ states.
+\end{itemize}
+
+\subsection*{Randomized Benchmarking (RB)}
+\begin{itemize}
+    \item \textbf{Data Fitting:} Success probabilities $p(m)$ for a sequence of $m$ gates are processed using:
+    \[
+    p(m) \text{ fitted to a linear combination of exponential decays}
+    \]
+    \item \textbf{SPAM Fidelity Estimation:} State Preparation and Measurement (SPAM) error can be estimated by evaluating the least-squares fit of the RB decay curve at:
+    \[
+    m = 0
+    \]
 \end{itemize}
 
 \end{document}
