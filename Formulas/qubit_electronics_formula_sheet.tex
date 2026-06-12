@@ -1,0 +1,540 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage[margin=1.5cm, columnsep=1em]{geometry}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{microtype}
+\usepackage{tabularx}
+
+% ── Colour palette ────────────────────────────────────────────────────────────
+\definecolor{headerbg}{RGB}{30,50,90}
+\definecolor{sectionbg}{RGB}{220,230,245}
+\definecolor{subseccolor}{RGB}{30,50,90}
+\definecolor{rulecolor}{RGB}{100,130,180}
+\definecolor{boxbg}{RGB}{240,244,252}
+
+% ── Section/subsection style ──────────────────────────────────────────────────
+\titleformat{\section}
+  {\normalfont\bfseries\small\color{white}}
+  {}{0pt}{}
+\titlespacing{\section}{0pt}{4pt}{2pt}
+
+\newcommand{\sectionbox}[1]{%
+  \vspace{3pt}%
+  \noindent\colorbox{headerbg}{\parbox{\linewidth-2\fboxsep}%
+    {\bfseries\small\color{white}\MakeUppercase{#1}}}%
+  \vspace{1pt}%
+}
+
+\newcommand{\subsec}[1]{%
+  \vspace{3pt}%
+  {\small\bfseries\color{subseccolor}#1}%
+  \vspace{1pt}\hrule height 0.4pt \vspace{2pt}%
+}
+
+% ── Compact itemise ───────────────────────────────────────────────────────────
+\setlist[itemize]{leftmargin=1em, itemsep=0pt, topsep=1pt, parsep=0pt,
+                  label={\tiny$\bullet$}}
+
+% ── Highlighted box ───────────────────────────────────────────────────────────
+\newmdenv[backgroundcolor=boxbg, linecolor=rulecolor, linewidth=0.6pt,
+          innerleftmargin=4pt, innerrightmargin=4pt,
+          innertopmargin=3pt, innerbottommargin=3pt,
+          skipabove=2pt, skipbelow=2pt]{formulabox}
+
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+% ── Custom operators ─────────────────────────────────────────────────────────
+% \Tr is already provided by the physics package
+% \Re is redefined via DeclareMathOperator to avoid clash with kernel \Re
+\DeclareMathOperator{\Repart}{Re}
+
+% ── Title ─────────────────────────────────────────────────────────────────────
+\begin{document}
+
+\begin{center}
+  {\large\bfseries\color{headerbg} QUBIT ELECTRONICS — FORMULA SHEET}\\[1pt]
+  {\small Martina Paola Calvi}
+\end{center}
+\vspace{-2pt}
+\noindent\textcolor{rulecolor}{\rule{\linewidth}{1pt}}
+\vspace{2pt}
+
+\begin{multicols}{2}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\sectionbox{1. Qubit Fundamentals}
+
+\subsec{State \& Normalisation}
+\begin{itemize}
+  \item General single-qubit state: $\ket{\psi} = \alpha\ket{0}+\beta\ket{1} = \begin{bmatrix}\alpha\\\beta\end{bmatrix}$
+  \item Normalisation: $|\alpha|^2+|\beta|^2 = 1 = \braket{\psi|\psi}$
+  \item Conjugate (bra): $\bra{\psi} = \ket{\psi}^\dagger = [\alpha^*,\beta^*]$
+  \item $n$-qubit state ($n=3$ example): $\ket{\psi}=\sum_{k=0}^{7}c_k\ket{k}$,\quad $\sum|c_k|^2=1$
+\end{itemize}
+
+\subsec{Bloch Sphere}
+\begin{itemize}
+  \item $\ket{\psi}=\cos\!\tfrac{\theta}{2}\ket{0}+e^{i\phi}\sin\!\tfrac{\theta}{2}\ket{1}$
+  \item Bloch vector: $\vec{r}=(\sin\theta\cos\phi,\,\sin\theta\sin\phi,\,\cos\theta)^T$
+  \item Poles / equator: $N=(0,0,1)$, $S=(0,0,-1)$, $\pm x=(\pm1,0,0)$, $\pm y=(0,\pm1,0)$
+\end{itemize}
+
+\subsec{Born Rule \& Measurement}
+\begin{itemize}
+  \item Probability of outcome $\ket{a}$: $P(\ket{a})=|\braket{a|\psi}|^2$
+  \item Expectation: $\langle\hat{O}\rangle=\bra{\psi}\hat{O}\ket{\psi}=\Tr(\rho\hat{O})$
+\end{itemize}
+
+\subsec{Standard Basis States}
+\[
+\ket{0}=\begin{bmatrix}1\\0\end{bmatrix},\quad
+\ket{1}=\begin{bmatrix}0\\1\end{bmatrix}
+\]
+\[
+\ket{\pm}=\tfrac{1}{\sqrt{2}}(\ket{0}\pm\ket{1}),\quad
+\ket{\pm i}=\tfrac{1}{\sqrt{2}}(\ket{0}\pm i\ket{1})
+\]
+
+\subsec{Single-Qubit Gates (Paulis \& Clifford)}
+\[
+X=\begin{bmatrix}0&1\\1&0\end{bmatrix},\quad
+Y=\begin{bmatrix}0&-i\\i&0\end{bmatrix},\quad
+Z=\begin{bmatrix}1&0\\0&-1\end{bmatrix}
+\]
+\[
+H=\tfrac{1}{\sqrt{2}}\begin{bmatrix}1&1\\1&-1\end{bmatrix},\quad
+S=\begin{bmatrix}1&0\\0&i\end{bmatrix},\quad
+T=\begin{bmatrix}1&0\\0&e^{i\pi/4}\end{bmatrix}
+\]
+Rotation gates ($\hat{n}\in\{X,Y,Z\}$):
+\[
+R_{\hat{n}}(\theta)=e^{-i\theta\hat{n}/2}
+=\cos\tfrac{\theta}{2}\,I - i\sin\tfrac{\theta}{2}\,\hat{n}
+\]
+
+\subsec{Two-Qubit Gate: CNOT}
+\begin{itemize}
+  \item Action: $\ket{A}\ket{B}\to\ket{A}\ket{A\oplus B}$
+\end{itemize}
+\[
+\mathrm{CNOT}=\begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&0&1\\0&0&1&0\end{bmatrix}
+\]
+
+\subsec{Density Matrix}
+\begin{itemize}
+  \item Pure state: $\rho=\ket{\psi}\bra{\psi}$; \quad mixed: $\hat\rho=\sum_i p_i\ket{\Psi_i}\bra{\Psi_i}$
+  \item Purity: $\Tr(\rho^2)=1$ (pure); $\Tr(\rho^2)<1$ (mixed)
+  \item Bloch representation: $\rho=\tfrac{1}{2}(I+\vec{r}\cdot\vec{\sigma})$
+  \item Expectation: $\langle\hat{O}\rangle=\Tr(\rho\hat{O})$
+\end{itemize}
+
+\subsec{Coherence Times \& Gate Metrics}
+\begin{itemize}
+  \item $\dfrac{1}{T_2}=\dfrac{1}{2T_1}+\dfrac{1}{T_\phi}$
+  \item $\dfrac{1}{T_2^*}=\dfrac{1}{2T_1}+\dfrac{1}{T_\phi}$ (inhomogeneous)
+  \item Max coherent gates: $N_\text{gates}\sim T_2/t_\text{gate}$
+  \item Relaxation rates: $\Gamma_1=1/T_1$; $\Gamma_\phi=1/T_\phi$; $\Gamma_2=\Gamma_1/2+\Gamma_\phi$
+  \item Thermal equilibrium: $\Gamma_{1\uparrow}=\Gamma_{1\downarrow}\,e^{-\hbar\omega/k_BT}$
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\sectionbox{2. Superconducting Qubits}
+
+\subsec{Cooper Pairs \& Superconductivity}
+\begin{itemize}
+  \item Macroscopic wavefunction: $\psi=\psi_0\exp\!\bigl[-\tfrac{i}{\hbar}(Et-\mathbf{p}\cdot\mathbf{x})\bigr]$
+  \item Probability density: $\rho=|\psi_0|^2$
+  \item Meissner effect: $B=0$ inside superconductor
+\end{itemize}
+
+\subsec{Josephson Junction}
+\begin{itemize}
+  \item Phase difference: $\phi=\varphi_2-\varphi_1$
+  \item DC Josephson: $I=I_C\sin\phi$
+  \item AC Josephson: $V=\dfrac{\Phi_0}{2\pi}\dot\phi$,\quad $\Phi_0=\dfrac{h}{2e}=\dfrac{2\pi\hbar}{2e}$
+  \item Josephson inductance: $L_J=\dfrac{\Phi_0}{2\pi I_C}$,\quad $L(\phi)=\dfrac{L_J}{\cos\phi}$
+  \item Josephson energy: $E_J(\phi)=E_J(1-\cos\phi)$,\quad $E_J=\dfrac{\Phi_0 I_C}{2\pi}$
+  \item Charging energy: $E_C=\dfrac{e^2}{2C}$
+\end{itemize}
+
+\subsec{LC Resonator Quantisation}
+\begin{itemize}
+  \item Hamiltonian: $H=\dfrac{\hat Q^2}{2C}+\dfrac{\hat\Phi^2}{2L}=\hbar\omega_r\!\left(\hat a^\dagger\hat a+\tfrac{1}{2}\right)$
+  \item Resonance: $\omega_{01}=1/\sqrt{LC}$
+  \item Canonical commutation: $[\hat\Phi,\hat Q]=i\hbar$;\quad $[\hat a,\hat a^\dagger]=1$
+  \item Zero-point fluctuations: $Q_\text{zpf}=\sqrt{\hbar/(2Z_0)}$;\quad $\Phi_\text{zpf}=\sqrt{\hbar Z_0/2}$
+\end{itemize}
+
+\subsec{Transmon Qubit}
+\begin{itemize}
+  \item Regime: $E_J\gg E_C$ (charge-noise insensitive)
+  \item Transition frequency: $\hbar\omega_{01}\approx\sqrt{8E_JE_C}-E_C\approx 10\,\text{GHz}$
+  \item Anharmonicity: $\delta=(E_{12}-E_{01})/\hbar<0$;\quad $E_{01}\neq E_{12}$
+  \item Flux-tunable inductance: $L(\Phi)=\dfrac{\Phi_0}{2\pi I_C\cos(2\pi\Phi/\Phi_0)}$
+  \item Operating temperature: $k_BT\ll\hbar\omega_{01}$
+  \item $\pi$-pulse time: $T_\pi\approx 4$–$20\,\text{ns}$;\quad $T_1,T_2\sim 100$–$1000\,\mu\text{s}$
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\sectionbox{3. Circuit QED}
+
+\subsec{Light–Matter Coupling}
+\begin{itemize}
+  \item Dipole interaction: $H=-\vec d\cdot\vec E(t)$
+  \item Rabi frequency: $\Omega_R=dE_0/\hbar$
+  \item Vacuum electric field (cavity): $E_0\approx0.2\,\text{V/m}$; enhancement $\sim2\times10^4$
+\end{itemize}
+
+\subsec{Resonator}
+\begin{itemize}
+  \item Mode condition: $2L=m\lambda_m$;\quad FSR: $\Delta f=c/(2L)$
+  \item Angular frequency: $\omega_r=1/\sqrt{L_rC_r}$
+  \item Quality factor: $Q=\omega_r/\kappa$;\quad $\kappa=\omega_r/Q$ (photon decay rate)
+\end{itemize}
+
+\subsec{Jaynes–Cummings Hamiltonian}
+\begin{formulabox}
+\[
+H_{JC}=\hbar\omega_r\hat a^\dagger\hat a
+      +\frac{\hbar\omega_{01}}{2}\hat\sigma_z
+      +\hbar g(\hat a\hat\sigma_++\hat a^\dagger\hat\sigma_-)
+\]
+\end{formulabox}
+Rotating-wave approximation (RWA) keeps only energy-conserving terms.
+
+\subsec{Coupling Strength}
+\begin{itemize}
+  \item $g=\omega_r\dfrac{C_g}{C}\!\left(\dfrac{E_J}{2E_C}\right)^{\!1/4}\!\sqrt{\dfrac{\pi Z_r}{R_k}}$
+  \item Typical values: $g/2\pi\approx100\,\text{MHz}$–$1\,\text{GHz}$
+\end{itemize}
+
+\subsec{Dispersive Regime ($|\Delta|\gg g$)}
+\begin{itemize}
+  \item Detuning: $\Delta=\omega_{01}-\omega_r$
+  \item Dispersive shift: $\chi=g^2/\Delta$
+  \item Effective Hamiltonian:
+  \[H_\text{disp}\approx(\omega_r+\chi\hat\sigma_z)\hat a^\dagger\hat a+\tfrac{\omega_{01}}{2}\hat\sigma_z\]
+  \item Qubit-state-dependent resonator frequency: $\omega_r^{(\uparrow/\downarrow)}=\omega_r\mp\chi$
+  \item Purcell rate: $\gamma_p=(g/\Delta)^2\kappa$;\quad optimal: $\chi/\kappa\approx1$
+\end{itemize}
+
+\subsec{Full System Hamiltonian}
+\[
+H=\frac{Q_r^2}{2C_r}+\frac{\Phi_r^2}{2L_r}+4E_C\hat n^2-E_J\cos\hat\phi
+  -g(\hat b^\dagger-\hat b)(\hat a^\dagger-\hat a)
+\]
+
+% ══════════════════════════════════════════════════════════════════════════════
+\sectionbox{4. Qubit Control \& Readout}
+
+\subsec{Microwave Drive (Transmon)}
+\begin{itemize}
+  \item Drive Hamiltonian: $\hat H=\dfrac{\hat Q^2}{2C_\Sigma}+\dfrac{\hat\Phi^2}{2L}+\dfrac{C_d}{C_\Sigma}V_d(t)\hat Q$
+  \item Charge operator: $\hat Q=-iQ_\text{zpf}(\hat a-\hat a^\dagger)$
+  \item Impedance: $Z_0=\sqrt{L/C_\Sigma}$
+  \item In qubit subspace ($\hat a\to\hat\sigma_-$): $\hat H=-\dfrac{\omega_q}{2}\hat\sigma_z+\Omega V_d(t)\hat\sigma_y$
+\end{itemize}
+
+\subsec{Rotating Frame \& RWA}
+\begin{itemize}
+  \item Frame transformation: $U(t)=e^{i\omega_q t\hat\sigma_z/2}$
+  \item IQ drive: $V_d(t)=V_0 s(t)\bigl[I\sin(\omega_d t)-Q\cos(\omega_d t)\bigr]$
+  \item Rotating-frame drive ($\omega_d\approx\omega_q$):
+  \[\hat H_d'=-\tfrac{\Omega}{2}V_0 s(t)(I\hat\sigma_x+Q\hat\sigma_y)\]
+\end{itemize}
+
+\subsec{Virtual Z Gate (Phase Control)}
+\begin{itemize}
+  \item IQ phase rotation by $\phi$:
+  \[I'=I\cos\phi-Q\sin\phi,\quad Q'=I\sin\phi+Q\cos\phi\]
+  \item $\phi=\pi/2$: converts $X$-rotation to $Y$-rotation
+\end{itemize}
+
+\subsec{Dispersive Readout}
+\begin{itemize}
+  \item $\hat H\approx(\omega_r+\chi\hat\sigma_z)\hat a^\dagger\hat a+\tfrac{\omega_q}{2}\hat\sigma_z$
+  \item SNR $\propto \chi/\kappa$;\quad effective Purcell suppression: $\kappa_\text{eff}(\omega_q)\ll\kappa(\omega_r)$
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\sectionbox{5. Qubit Characterisation Protocols}
+
+\subsec{Reference Frames}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Region & Axis & Physical meaning \\\midrule
+North pole & $+z$ & $\ket{0}$ (ground) \\
+South pole & $-z$ & $\ket{1}$ (excited) \\
+Equator & $xy$-plane & Superposition \\
+Precession & $\phi(t)$ & Rotation at $\omega_{01}$ \\\bottomrule
+\end{tabular}
+\end{center}
+At resonance ($\omega_r=\omega_{01}$): $H'=0$ in rotating frame.
+
+\subsec{$T_1$ Measurement (Inversion Recovery)}
+\begin{itemize}
+  \item Sequence: $X_\pi$ — wait $\tau$ — measure
+  \item Decay: $\langle Z\rangle(\tau)\propto e^{-\tau/T_1}$
+\end{itemize}
+
+\subsec{$T_2^*$ Measurement (Ramsey)}
+\begin{itemize}
+  \item Sequence: $X_{\pi/2}$ — wait $\tau$ — $X_{\pi/2}$ — measure
+  \item Signal: oscillates and decays as $e^{-\tau/T_2^*}$
+\end{itemize}
+
+\subsec{$T_2$ Measurement (Hahn Echo)}
+\begin{itemize}
+  \item Sequence: $X_{\pi/2}$ — wait $\tau/2$ — $Y_\pi$ — wait $\tau/2$ — $X_{\pi/2}$
+  \item Refocuses static noise: $T_2\geq T_2^*$
+\end{itemize}
+
+\subsec{Randomised Benchmarking}
+\begin{itemize}
+  \item Fit: $p(m)=A+Bp^m$; error per gate $r=(1-p)/2$
+  \item SPAM fidelity: extract fit at $m=0$
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\sectionbox{6. Transmission Lines}
+
+\subsec{Distributed Parameters}
+\begin{center}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Symbol & Quantity \\\midrule
+$R_0\;[\Omega/\text{m}]$ & Resistance per unit length \\
+$L_0\;[\text{H/m}]$ & Inductance per unit length \\
+$C_0\;[\text{F/m}]$ & Capacitance per unit length \\
+$G_0\;[\text{S/m}]$ & Conductance per unit length \\\bottomrule
+\end{tabular}
+\end{center}
+
+\subsec{Telegrapher Equations}
+\[
+\frac{\partial V}{\partial z}=-R_0 i-L_0\frac{\partial i}{\partial t},\qquad
+\frac{\partial i}{\partial z}=-G_0 V-C_0\frac{\partial V}{\partial t}
+\]
+Lossless line ($R_0=G_0=0$): wave equation
+\[
+\frac{\partial^2 V}{\partial z^2}=L_0C_0\frac{\partial^2 V}{\partial t^2}
+\]
+
+\subsec{Wave Parameters}
+\begin{itemize}
+  \item Phase velocity: $v=1/\sqrt{L_0C_0}$
+  \item Characteristic impedance: $Z_0=\sqrt{L_0/C_0}$
+  \item General solution: $V(z,t)=V^+(t-z/v)+V^-(t+z/v)$
+  \item Currents: $i^+=V^+/Z_0$;\quad $i^-=-V^-/Z_0$
+\end{itemize}
+
+\subsec{Reflections \& Matching}
+\begin{itemize}
+  \item Voltage reflection: $\Gamma_L=\dfrac{R_L-Z_0}{R_L+Z_0}$
+  \item Current reflection: $\rho_i=-\Gamma_L$
+  \item Matched load: $R_L=Z_0\Rightarrow\Gamma_L=0$ (no reflection)
+\end{itemize}
+
+\subsec{Power}
+\begin{itemize}
+  \item Instantaneous: $p=Vi$
+  \item Average (travelling wave): $P_\text{avg}=V_\text{rms}^2/Z_0=I_\text{rms}^2Z_0$
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\sectionbox{7. S-Parameters}
+
+\subsec{Power-Wave Definitions}
+\[
+a_i=\frac{V_i+Z_{ri}I_i}{2\sqrt{Z_{ri}}},\qquad
+b_i=\frac{V_i-Z_{ri}I_i}{2\sqrt{Z_{ri}}}
+\]
+\begin{itemize}
+  \item $|a_i|^2$, $|b_i|^2$: incident/reflected power [W]
+  \item Net power: $P_i=|a_i|^2-|b_i|^2$
+  \item Propagation: $a(x)=a(0)e^{-jkx}$;\quad $b(x)=b(0)e^{+jkx}$
+\end{itemize}
+
+\subsec{S-Matrix (N-port)}
+\[
+\mathbf{b}=\mathbf{S}\,\mathbf{a},\qquad
+S_{ij}=\left.\frac{b_i}{a_j}\right|_{a_{k\neq j}=0}
+\]
+Two-port:
+\[
+\begin{bmatrix}b_1\\b_2\end{bmatrix}=
+\begin{bmatrix}S_{11}&S_{12}\\S_{21}&S_{22}\end{bmatrix}
+\begin{bmatrix}a_1\\a_2\end{bmatrix}
+\]
+\begin{itemize}
+  \item Reciprocal: $S_{ij}=S_{ji}$;\quad Lossless: $\mathbf{SS}^\dagger=\mathbf{I}$
+\end{itemize}
+
+\subsec{Impedance Discontinuity ($Z_1$/$Z_2$ junction)}
+\[
+\mathbf{S}=\frac{1}{Z_1+Z_2}
+\begin{pmatrix}Z_2-Z_1 & 2\sqrt{Z_1Z_2}\\2\sqrt{Z_1Z_2} & Z_1-Z_2\end{pmatrix}
+\]
+\begin{itemize}
+  \item $S_{11}=(Z_2-Z_1)/(Z_1+Z_2)$;\quad $S_{22}=-S_{11}$
+  \item $S_{21}=S_{12}=2\sqrt{Z_1Z_2}/(Z_1+Z_2)$
+\end{itemize}
+
+\subsec{VNA Measurement}
+\begin{itemize}
+  \item $RX_\text{REF}$: measures $a_1$;\quad $RX_\text{TEST1}$: $b_1$;\quad $RX_\text{TEST2}$: $b_2$
+  \item Forward: $S_{11}=b_1/a_1$,\; $S_{21}=b_2/a_1$
+  \item Reverse: $S_{22}=b_2/a_2$,\; $S_{12}=b_1/a_2$
+\end{itemize}
+
+\subsec{Directional Coupler}
+\[
+\text{Coupling [dB]}=-10\log\!\left(\frac{P_\text{fwd,coupled}}{P_\text{incident}}\right)
+\]
+\[
+\text{Isolation [dB]}=-10\log\!\left(\frac{P_\text{rev,coupled}}{P_\text{incident}}\right)
+\]
+\[
+\text{Directivity [dB]}=\text{Isolation}-\text{Coupling}
+\]
+
+% ══════════════════════════════════════════════════════════════════════════════
+\sectionbox{8. Complex Signals \& Modulation}
+
+\subsec{Euler / Phasor Identities}
+\[
+e^{\pm j\omega t}=\cos\omega t\pm j\sin\omega t
+\]
+\[
+\cos\omega t=\frac{e^{j\omega t}+e^{-j\omega t}}{2},\qquad
+\sin\omega t=\frac{e^{j\omega t}-e^{-j\omega t}}{2j}
+\]
+
+\subsec{General Sinusoid}
+\[v(t)=A\sin(2\pi ft+\phi)\]
+
+\subsec{Amplitude Modulation (AM)}
+\[
+s(t)=\bigl[A_c+A_m\cos2\pi f_m t\bigr]\cos2\pi f_c t
+\]
+Using $\cos A\cos B=\tfrac{1}{2}[\cos(A+B)+\cos(A-B)]$:
+\[
+s(t)=A_c\cos2\pi f_c t+\tfrac{A_m}{2}\cos2\pi(f_c\pm f_m)t
+\]
+
+\subsec{I/Q (Quadrature) Modulation}
+\begin{itemize}
+  \item Complex baseband envelope: $g(t)=g_1(t)+jg_2(t)$
+  \item Modulated signal: $v(t)=\Repart\{g(t)e^{j2\pi f_c t}\}$
+  \[=g_1(t)\cos(2\pi f_c t)-g_2(t)\sin(2\pi f_c t)\]
+\end{itemize}
+
+\subsec{I/Q Demodulation}
+\begin{itemize}
+  \item Multiply by $e^{-j2\pi f_c t}$, then LPF:
+  \[z_1(t)=\tfrac{1}{2}g_1(t),\quad z_2(t)=\tfrac{1}{2}g_2(t)\]
+\end{itemize}
+
+\subsec{Magnitude \& Phase Spectra}
+\[
+|G(f)|=2\sqrt{A^2(f)+B^2(f)},\qquad
+\angle G(f)=\arctan\!\left(\frac{B(f)}{A(f)}\right)
+\]
+
+% ══════════════════════════════════════════════════════════════════════════════
+\sectionbox{9. Digital Signal Processing}
+
+\subsec{Sampling}
+\begin{itemize}
+  \item Sampling rate: $f_s=1/t_s$
+  \item Nyquist–Shannon: $f_s>2(f_h-f_l)$
+  \item Alias frequency: $f_\text{alias}=|f-nf_s|$
+  \item DAC image locations: $Nf_s\pm f$
+\end{itemize}
+
+\subsec{Quantisation}
+\begin{itemize}
+  \item Step size: $q=V_\text{FS}/(2^N-1)$;\quad ADC resolution: $\Delta=V_\text{FS}/2^n$
+  \item Dynamic range: $\text{DR}=20\log_{10}(2^N)\approx6.02N\;\text{dB}$
+  \item Quantisation noise power: $P_q=q^2/12$
+  \item SFDR: $P_\text{fundamental}/P_\text{biggest spur}$
+\end{itemize}
+
+\subsec{Fixed-Point Format Q$n.b$}
+\begin{itemize}
+  \item Unsigned: range $[0,\;2^n-2^{-b}]$
+  \item Signed 2's complement: $[-2^{n-1},\;2^{n-1}-2^{-b}]$
+  \item Resolution: $2^{-b}$
+  \item Add/sub: $+1$ bit for overflow guard
+  \item Multiply: Q$(m_1.n_1)\!\times\!$Q$(m_2.n_2)\!\to\!$Q$(m_1{+}m_2{.}n_1{+}n_2)$
+\end{itemize}
+
+\subsec{Multirate Processing}
+\begin{itemize}
+  \item Decimation by $M$: $f_d=f_s/M$
+  \item Interpolation by $L$: $f_u=Lf_s$
+  \item First image after interpolation by $K$: $f_\text{image}=Kf_c-f_0$
+\end{itemize}
+
+\subsec{Data Converters}
+\begin{itemize}
+  \item Interleaved ADC phase ($n$-th of $m$): $\theta_n=2\pi(n-1)/m$
+  \item DAC sinc response (normal mode): $H(f)=\dfrac{\sin x}{x}$,\; $x=\pi f/f_s$
+  \item DAC mix-mode response: $H(f)=\dfrac{\sin^2 x}{x}$,\; $x=\pi f/(2f_s)$
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\sectionbox{10. Semiconductor Qubits — Elzerman Readout}
+
+\subsec{Energy Hierarchy}
+\[
+\Delta E_\text{orbital}\gg\Delta E_Z\gg k_BT
+\]
+\begin{itemize}
+  \item Zeeman energy ($B=10\,\text{T}$): $\Delta E_Z\approx200\,\mu\text{eV}$
+  \item Thermal energy ($T=0.3\,\text{K}$): $k_BT\approx25\,\mu\text{eV}$
+  \item Orbital spacing: $\Delta E_\text{orbital}\approx1.1\,\text{meV}$
+\end{itemize}
+
+\subsec{Bias Tuning}
+\[
+V_M=V_{M0}+\frac{\Delta E_Z}{2e}
+\]
+Places Fermi energy midway between spin-up and spin-down levels.
+
+\subsec{Measurement Fidelity}
+\begin{itemize}
+  \item $\alpha=P(\text{``down''}\mid\uparrow)$;\quad $\beta=P(\text{``up''}\mid\downarrow)$
+  \item Decay/detection error: $\beta_1=\dfrac{1}{1+T_1\Gamma_\downarrow}$
+  \item Combined $\beta$: $1-\beta\approx(1-\beta_1)(1-\beta_2)+\alpha\beta_1$
+  \item Spin-up fidelity: $1-\alpha$
+  \item Visibility: $\mathcal{V}=1-\alpha-\beta$
+\end{itemize}
+
+\subsec{Two-Qubit Exchange Interaction}
+\[
+H_0\sim\sum_i\omega_i\hat\sigma_{zi}
+\]
+\[
+J=f_2-f_1\quad\text{or}\quad J=f_4-f_3
+\]
+where $f_{1,2}$ are resonance frequencies of $q_0$ conditioned on state of $q_1$, and vice-versa.
+
+\end{multicols}
+
+
+\end{document}
